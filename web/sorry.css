@@ -1,0 +1,87 @@
+#wrapper {margin:0 auto; width: 700px;}
+#board {margin:0 auto; width:500px}
+
+.grid { margin:1em auto; border-collapse:collapse;  table-layout:fixed;}
+.grid td {
+    width:50px; height:50px;
+    text-align:center;
+    font-family:sans-serif;
+}
+
+
+
+.red {
+    background-color:red;
+}
+.blue {
+    background-color:blue;
+}
+.yellow {
+    background-color:yellow;
+}
+.green {
+    background-color:green;
+
+}
+.piece {
+    width:10px;
+    height:10px;
+    border-radius: 5px;
+    border:1px solid #000;
+    margin:2px;
+    float:right;
+}
+.space {
+    cursor:pointer;
+    border:solid 1px #000;
+
+}
+#feedback {
+    position:absolute;
+    left:425px;
+    top:185px;
+    width:400px;
+    height:80px;
+    border:1px solid #000;
+    font-size:14px;
+    padding:10px;
+
+}
+#deck {
+    position:absolute;
+    left:425px;
+    top:305px;
+    width:200px;
+    height:300px;
+    border-radius:10px;
+    border:1px solid #000;
+    font-size:50px;
+}
+#discard {
+    position:absolute;
+    left:645px;
+    top:305px;
+    width:140px;
+    height:225px;
+    border-radius:10px;
+    border:1px solid #000;
+    font-size:100px;
+    padding-top:75px;
+    padding-left:60px;
+}
+/*
+.grid td.clicked {
+    background-color:yellow;
+    font-weight:bold; color:red;
+    border:solid 1px #000;
+    cursor:pointer;
+}
+
+#x00 {
+border:solid 1px #000;
+
+}
+#x00 {
+border:solid 1px #000;
+
+}*/

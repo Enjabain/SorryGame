@@ -3,6 +3,22 @@
   <component name="AntConfiguration">
     <defaultAnt bundledAnt="true" />
   </component>
+  <component name="ArtifactManager">
+    <artifact type="exploded-war" name="SorryGame:Web exploded">
+      <output-path>$PROJECT_DIR$/out/artifacts/SorryGame_Web_exploded</output-path>
+      <root id="root">
+        <element id="javaee-facet-resources" facet="SorryGame/web/Web" />
+        <element id="directory" name="WEB-INF">
+          <element id="directory" name="classes">
+            <element id="module-output" name="SorryGame" />
+          </element>
+          <element id="directory" name="lib">
+            <element id="library" level="project" name="JSON" />
+          </element>
+        </element>
+      </root>
+    </artifact>
+  </component>
   <component name="CompilerConfiguration">
     <option name="DEFAULT_COMPILER" value="Javac" />
     <resourceExtensions />
@@ -299,6 +315,13 @@
   </component>
   <component name="VcsDirectoryMappings">
     <mapping directory="" vcs="Git" />
+  </component>
+  <component name="WebContextManager">
+    <option name="state">
+      <map>
+        <entry key="file://$PROJECT_DIR$/web/Sorry!.html" value="file://$PROJECT_DIR$/web" />
+      </map>
+    </option>
   </component>
   <component name="WebServicesPlugin" addRequiredLibraries="true" />
   <component name="libraryTable">
