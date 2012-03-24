@@ -304,7 +304,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/SorryGame.iml" filepath="$PROJECT_DIR$/SorryGame.iml" />
-      <module fileurl="file://$PROJECT_DIR$/SorryGame/SorryGame.iml" filepath="$PROJECT_DIR$/SorryGame/SorryGame.iml" />
     </modules>
   </component>
   <component name="ProjectResources">
