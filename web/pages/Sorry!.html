@@ -4,408 +4,389 @@
 
 <head>
 
-   <title>Sorry! Board Game</title>
+<title>Sorry! Board Game</title>
 
-   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 
-   <link rel="stylesheet" href="sorry.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="sorry.css" type="text/css" media="screen"/>
 <script>
 
-    window.n = 0;
-    window.index1 = 0;
-    window.index2 = 0;
+window.n = 0;
+window.index1 = 0;
+window.index2 = 0;
 
 function graphIt() {
-var lastClicked;
-var grid = initBoard(16,16,function(el,row,col,i){
-    console.log("You clicked on element:",el);
-    console.log("You clicked on row:",row);
-    console.log("You clicked on col:",col);
-    console.log("You clicked on item #:",i);
+    var grid = initBoard(16, 16, function (el, row, col, i) {
 
-
-    if (window.index1 != 0 && window.index2 != 0) {
-        window.n = 0;
-        window.index1 = 0;
-        window.index2 = 0;
-    }
-
-    if (window.n == 0) {
-        window.index1 = i;
-        ++window.n;
-    }
-    else if (window.n == 1) {
-        window.index2 = i;
-        ++window.n;
-    }
-    var feedbackdisplay = document.getElementById('feedback');
-    feedbackdisplay.innerHTML = index1 + ' ' + index2;
-
-    // Added 'if' conditional to avoid processing the body of statements if the first item does not contain a gamepiece
-    // or if the "move to" position has not been selected yet.
-    if (document.getElementById(index1).hasChildNodes() && index2 != 0) {
-        if (document.getElementById('movePieces').checked) {
-            movePiece(index1, index2);
-        } else if (document.getElementById('bumpPieces').checked) {
-            bumpPiece(index1, index2);
-        } else if (document.getElementById('swapPieces').checked) {
-            swapPiece(index1, index2);
-        } else if (document.getElementById('slidePieces4').checked) {
-            slidePiece4(index1, index2);
-        } else if (document.getElementById('slidePieces5').checked) {
-            slidePiece5(index1, index2);
+        if (window.index1 != 0 && window.index2 != 0) {
+            window.n = 0;
+            window.index1 = 0;
+            window.index2 = 0;
         }
-    }
-    // Added this to reset the indexes to 0 if the first square clicked was empty. Not executed if index1 is occupied
-    // but index2 has not been selected yet.
-    if(!document.getElementById(index1).hasChildNodes()){
-        window.n = 0;
-        window.index1 = 0;
-        window.index2 = 0;
+
+        if (window.n == 0) {
+            window.index1 = i;
+            ++window.n;
+        }
+        else if (window.n == 1) {
+            window.index2 = i;
+            ++window.n;
+        }
+        var feedbackdisplay = document.getElementById('feedbackdebug');
         feedbackdisplay.innerHTML = index1 + ' ' + index2;
-    }
-
-//movePiece(index1, index2);
 
 
+        if (document.getElementById(index1).hasChildNodes() && index2 != 0) {
+            if (document.getElementById('movePieces').checked) {
+                movePiece(index1, index2);
+            } else if (document.getElementById('bumpPieces').checked) {
+                bumpPiece(index1, index2);
+            } else if (document.getElementById('swapPieces').checked) {
+                swapPiece(index1, index2);
+            } else if (document.getElementById('slidePieces4').checked) {
+                slidePiece4(index1, index2);
+            } else if (document.getElementById('slidePieces5').checked) {
+                slidePiece5(index1, index2);
+            }
+        }
 
-    //el.className='clicked';
-  /*  if (lastClicked) lastClicked.className='clickable';
-    lastClicked = el; */
-});
+        if (!document.getElementById(index1).hasChildNodes()) {
+            window.n = 0;
+            window.index1 = 0;
+            window.index2 = 0;
+            feedbackdisplay.innerHTML = index1 + ' ' + index2;
+        }
 
-document.body.appendChild(grid);
+    });
+
+    var board = document.getElementById('board');
+    board.appendChild(grid);
 }
 
-			function movePiece(index1,index2) {
-				var piece = document.getElementById(index1).firstChild;
-				var moveTo = document.getElementById(index2);
-                                moveTo.insertBefore(piece, moveTo.firstChild);
-			}
+function movePiece(index1, index2) {
+    var piece = document.getElementById(index1).firstChild;
+    var moveTo = document.getElementById(index2);
+    moveTo.insertBefore(piece, moveTo.firstChild);
+}
 
-			function bumpPiece(index1,index2) {
-				var piece1 = document.getElementById(index1).firstChild;
-				bumper(index2);
-				var moveTo = document.getElementById(index2);
-                                moveTo.insertBefore(piece1, moveTo.firstChild);
-			}
-			function swapPiece(index1,index2) {
-				var piece1 = document.getElementById(index1).firstChild;
-				var moveFrom = document.getElementById(index1);
-				var moveTo = document.getElementById(index2);
-				if (moveTo.firstChild) {
-					var piece2 = document.getElementById(index2).firstChild;
-                    moveTo.insertBefore(piece1, moveTo.firstChild);
-                    moveFrom.insertBefore(piece2, moveFrom.firstChild);
-				}
-			}
-			function slidePiece4(index1,index2) {
-				var piece1 = document.getElementById(index1).firstChild;
-				bumper(index2);
-				bumper(index2 + 1);
-				bumper(index2 + 2);
-				bumper(index2 + 3);
-				var moveTo = document.getElementById(index2+3);
-                                moveTo.insertBefore(piece1, moveTo.firstChild);
-
-
-			}
-			function slidePiece5(index1,index2) {
-				var piece1 = document.getElementById(index1).firstChild;
-				bumper(index2);
-				index2++;
-				bumper(index2);
-				index2++;
-				bumper(index2);
-				index2++;
-				bumper(index2);
-				index2++;
-				bumper(index2);
-				var moveTo = document.getElementById(index2);
-                                moveTo.insertBefore(piece1, moveTo.firstChild);
+function bumpPiece(index1, index2) {
+    var piece1 = document.getElementById(index1).firstChild;
+    bumper(index2);
+    var moveTo = document.getElementById(index2);
+    moveTo.insertBefore(piece1, moveTo.firstChild);
+}
+function swapPiece(index1, index2) {
+    var piece1 = document.getElementById(index1).firstChild;
+    var moveFrom = document.getElementById(index1);
+    var moveTo = document.getElementById(index2);
+    if (moveTo.firstChild) {
+        var piece2 = document.getElementById(index2).firstChild;
+        moveTo.insertBefore(piece1, moveTo.firstChild);
+        moveFrom.insertBefore(piece2, moveFrom.firstChild);
+    }
+}
+function slidePiece4(index1, index2) {
+    var piece1 = document.getElementById(index1).firstChild;
+    bumper(index2);
+    bumper(index2 + 1);
+    bumper(index2 + 2);
+    bumper(index2 + 3);
+    var moveTo = document.getElementById(index2 + 3);
+    moveTo.insertBefore(piece1, moveTo.firstChild);
 
 
-			}
-			function bumper(bump) {
-				var bumped = document.getElementById(bump);
-				if (bumped.firstChild) {
-					var piece2 = document.getElementById(bump).firstChild;
-					var piece2ID = piece2.getAttribute("id");
-					if (piece2ID.indexOf("r") != -1) {
-						var start = document.getElementById("redstart");
-					}
-					else if (piece2ID.indexOf("b") != -1) {
-						var start = document.getElementById("bluestart");
-					}
-					else if (piece2ID.indexOf("y") != -1) {
-						var start = document.getElementById("yellowstart");
-					}
-					else if (piece2ID.indexOf("g") != -1) {
-						var start = document.getElementById("greenstart");
-					}
-                                	start.insertBefore(piece2, start.firstChild);
-				}
+}
+function slidePiece5(index1, index2) {
+    var piece1 = document.getElementById(index1).firstChild;
+    bumper(index2);
+    index2++;
+    bumper(index2);
+    index2++;
+    bumper(index2);
+    index2++;
+    bumper(index2);
+    index2++;
+    bumper(index2);
+    var moveTo = document.getElementById(index2);
+    moveTo.insertBefore(piece1, moveTo.firstChild);
 
-			}
-			
+
+}
+function bumper(bump) {
+    var bumped = document.getElementById(bump);
+    if (bumped.firstChild) {
+        var piece2 = document.getElementById(bump).firstChild;
+        var piece2ID = piece2.getAttribute("id");
+        if (piece2ID.indexOf("r") != -1) {
+            var start = document.getElementById("redstart");
+        }
+        else if (piece2ID.indexOf("b") != -1) {
+            start = document.getElementById("bluestart");
+        }
+        else if (piece2ID.indexOf("y") != -1) {
+            start = document.getElementById("yellowstart");
+        }
+        else if (piece2ID.indexOf("g") != -1) {
+            start = document.getElementById("greenstart");
+        }
+        start.insertBefore(piece2, start.firstChild);
+    }
+}
+
 
 function drawCard() {
-	var card=Math.floor(Math.random()*12)+1;
-	var discardpile = document.getElementById('discard');
+    var card = Math.floor(Math.random() * 12) + 1;
+    var discardpile = document.getElementById('discard');
 
-if (card == 1) {
-discardpile.innerHTML = '<div id="description">Must either start a man out or move one man forward 1 square.</div>'+card
-}
-else if (card == 2) {
-discardpile.innerHTML = '<div id="description">Must either start a man out or move one man forward 2 squares. DRAW AGAIN</div>'+card
-}
-else if (card == 3) {
-discardpile.innerHTML = '<div id="description">Must move one man forward 3 squares.</div>'+card
-}
-else if (card == 4) {
-discardpile.innerHTML = '<div id="description">Must move one man backward 4 squares.</div>'+card
-}
-else if (card == 5) {
-discardpile.innerHTML = '<div id="description">Must move one man forward 5 squares.</div>'+card
-}
-else if (card == 7) {
-discardpile.innerHTML = '<div id="description">Must either move one man forward 7 squares or split the move between any two men.</div>'+card
-}
-else if (card == 8) {
-discardpile.innerHTML = '<div id="description">Must move one man forward 8 squares.</div>'+card
-}
-else if (card == 10) {
-discardpile.innerHTML = '<div id="description">Must move one man forward 8 squares.</div>'+card
-}
-else if (card == 11) {
-discardpile.innerHTML = '<div id="description">Move one man forward 11 squares or any one of your men may change places with any one opponent. Note: Forfeit move if you do not wish to change places and it is impossible to go forward 11 squares.</div>'+card
-}
-else if (card == 12) {
-discardpile.innerHTML = '<div id="description">Must move one man forward 12 squares.</div>'+card
-}
-else if (card == 'Sorry') {
-discardpile.innerHTML = '<div id="description">Must take one man from your start, place it on any square that is occupied by any opponent, and return that opponents man to its start. If there is no man on your start or no opponents man is on any square your move is forfeited.</div>'+card
-}
+    if (card == 1) {
+        discardpile.innerHTML = '<div id="description">Must either start a man out or move one man forward 1 square.</div>' + card
+    }
+    else if (card == 2) {
+        discardpile.innerHTML = '<div id="description">Must either start a man out or move one man forward 2 squares. DRAW AGAIN</div>' + card
+    }
+    else if (card == 3) {
+        discardpile.innerHTML = '<div id="description">Must move one man forward 3 squares.</div>' + card
+    }
+    else if (card == 4) {
+        discardpile.innerHTML = '<div id="description">Must move one man backward 4 squares.</div>' + card
+    }
+    else if (card == 5) {
+        discardpile.innerHTML = '<div id="description">Must move one man forward 5 squares.</div>' + card
+    }
+    else if (card == 7) {
+        discardpile.innerHTML = '<div id="description">Must either move one man forward 7 squares or split the move between any two men.</div>' + card
+    }
+    else if (card == 8) {
+        discardpile.innerHTML = '<div id="description">Must move one man forward 8 squares.</div>' + card
+    }
+    else if (card == 10) {
+        discardpile.innerHTML = '<div id="description">Must move one man forward 8 squares.</div>' + card
+    }
+    else if (card == 11) {
+        discardpile.innerHTML = '<div id="description">Move one man forward 11 squares or any one of your men may change places with any one opponent. Note: Forfeit move if you do not wish to change places and it is impossible to go forward 11 squares.</div>' + card
+    }
+    else if (card == 12) {
+        discardpile.innerHTML = '<div id="description">Must move one man forward 12 squares.</div>' + card
+    }
+    else if (card == 'Sorry') {
+        discardpile.innerHTML = '<div id="description">Must take one man from your start, place it on any square that is occupied by any opponent, and return that opponents man to its start. If there is no man on your start or no opponents man is on any square your move is forfeited.</div>' + card
+    }
 }
 
-function initBoard( rows, cols, callback ){
-    var ileft=60;
-    var iright=17;    
-    var itop=1;
-    var ibottom=46;
-    var ired=1;
-    var iblue=1;
-    var igreen=1;
-    var iyellow=1;
+function initBoard(rows, cols, callback) {
+    var ileft = 60;
+    var iright = 17;
+    var itop = 1;
+    var ibottom = 46;
+    var ired = 5;
+    var iblue = 5;
+    var igreen = 1;
+    var iyellow = 1;
     var grid = document.createElement('table');
     grid.className = 'grid';
-    for (var r=0;r<rows;++r){
+    for (var r = 0; r < rows; ++r) {
         var tr = grid.appendChild(document.createElement('tr'));
-        for (var c=0;c<cols;++c){
+        for (var c = 0; c < cols; ++c) {
             var cell = tr.appendChild(document.createElement('td'));
 
-	    if(r == 0) {
-		cell.setAttribute("class", 'space');
-		cell.setAttribute("id", itop);
-                cell.addEventListener('click',(function(el,r,c,itop){
-                return function(){
-                    callback(el,r,c,itop);
-		}
-            	})(cell,r,c,itop),false);
-		++itop;
-	    }
-	    if(c == 15 && r != 0) {
-		cell.setAttribute("class", 'space');
-		cell.setAttribute("id", iright);
-                cell.addEventListener('click',(function(el,r,c,iright){
-                return function(){
-                    callback(el,r,c,iright);
-		}
-            	})(cell,r,c,iright),false);
-		++iright;
-	    }
-	    if(r == 15 && c != 15) {
-		cell.setAttribute("class", 'space');
-		cell.setAttribute("id", ibottom);
-                cell.addEventListener('click',(function(el,r,c,ibottom){
-                return function(){
-                    callback(el,r,c,ibottom);
-		}
-            	})(cell,r,c,ibottom),false);
-		--ibottom;
-	    }
-	    if(c == 0 && r != 15 && r != 0) {
-		cell.setAttribute("class", 'space');
-		cell.setAttribute("id", ileft);
-                cell.addEventListener('click',(function(el,r,c,ileft){
-                return function(){
-                    callback(el,r,c,ileft);
-		}
-            	})(cell,r,c,ileft),false);
-		--ileft;
-	    }
+            if (r == 0) {
+                cell.setAttribute("class", 'space');
+                cell.setAttribute("id", itop);
+                cell.addEventListener('click', (function (el, r, c, itop) {
+                    return function () {
+                        callback(el, r, c, itop);
+                    }
+                })(cell, r, c, itop), false);
+                ++itop;
+            }
+            if (c == 15 && r != 0) {
+                cell.setAttribute("class", 'space');
+                cell.setAttribute("id", iright);
+                cell.addEventListener('click', (function (el, r, c, iright) {
+                    return function () {
+                        callback(el, r, c, iright);
+                    }
+                })(cell, r, c, iright), false);
+                ++iright;
+            }
+            if (r == 15 && c != 15) {
+                cell.setAttribute("class", 'space');
+                cell.setAttribute("id", ibottom);
+                cell.addEventListener('click', (function (el, r, c, ibottom) {
+                    return function () {
+                        callback(el, r, c, ibottom);
+                    }
+                })(cell, r, c, ibottom), false);
+                --ibottom;
+            }
+            if (c == 0 && r != 15 && r != 0) {
+                cell.setAttribute("class", 'space');
+                cell.setAttribute("id", ileft);
+                cell.addEventListener('click', (function (el, r, c, ileft) {
+                    return function () {
+                        callback(el, r, c, ileft);
+                    }
+                })(cell, r, c, ileft), false);
+                --ileft;
+            }
 
-	    if(c == 2 && r >= 1 && r <= 5) {
-		var index = "g"+igreen;
-		cell.setAttribute ("class", 'green space');
-		cell.setAttribute("id", index);
-                cell.addEventListener('click',(function(el,r,c,index){
-                return function(){
-                    callback(el,r,c,index);
-		}
-            	})(cell,r,c,index),false);
-		++igreen;
-	    }
-	    if(r == 2 && c >= 10 && c <= 14) { 
-		var index = "r"+ired;
-		cell.setAttribute ("class", 'red space');
-		cell.setAttribute("id", index);
-                cell.addEventListener('click',(function(el,r,c,index){
-                return function(){
-                    callback(el,r,c,index);
-		}
-            	})(cell,r,c,index),false);
-		++ired;
-	    }
-	    if(c == 13 && r >= 10 && r <= 14) {
-		var index = "b"+iblue;
-		cell.setAttribute ("class", 'blue space');
-		cell.setAttribute("id", index);
-                cell.addEventListener('click',(function(el,r,c,index){
-                return function(){
-                    callback(el,r,c,index);
-		}
-            	})(cell,r,c,index),false);
-		++iblue;
-	    }
-	    if(r == 13 && c >= 1 && c <= 5) { 
-		var index = "y"+iyellow;
-		cell.setAttribute ("class", 'yellow space');
-		cell.setAttribute("id", index);
-                cell.addEventListener('click',(function(el,r,c,index){
-                return function(){
-                    callback(el,r,c,index);
-		}
-            	})(cell,r,c,index),false);
-		++iyellow;
-	    }
+            if (c == 2 && r >= 1 && r <= 5) {
+                var index = "g" + igreen;
+                cell.setAttribute("class", 'green space');
+                cell.setAttribute("id", index);
+                cell.addEventListener('click', (function (el, r, c, index) {
+                    return function () {
+                        callback(el, r, c, index);
+                    }
+                })(cell, r, c, index), false);
+                ++igreen;
+            }
+            if (r == 2 && c >= 10 && c <= 14) {
+                index = "r" + ired;
+                cell.setAttribute("class", 'red space');
+                cell.setAttribute("id", index);
+                cell.addEventListener('click', (function (el, r, c, index) {
+                    return function () {
+                        callback(el, r, c, index);
+                    }
+                })(cell, r, c, index), false);
+                --ired;
+            }
+            if (c == 13 && r >= 10 && r <= 14) {
+                index = "b" + iblue;
+                cell.setAttribute("class", 'blue space');
+                cell.setAttribute("id", index);
+                cell.addEventListener('click', (function (el, r, c, index) {
+                    return function () {
+                        callback(el, r, c, index);
+                    }
+                })(cell, r, c, index), false);
+                --iblue;
+            }
+            if (r == 13 && c >= 1 && c <= 5) {
+                index = "y" + iyellow;
+                cell.setAttribute("class", 'yellow space');
+                cell.setAttribute("id", index);
+                cell.addEventListener('click', (function (el, r, c, index) {
+                    return function () {
+                        callback(el, r, c, index);
+                    }
+                })(cell, r, c, index), false);
+                ++iyellow;
+            }
 
-	    if(c == 14 && r == 4) {
-		index = 'redstart';
-		cell.setAttribute ("class", 'red space');
-		cell.setAttribute("id", index);
-		for(var i=1; i<=4; ++i) {
-            	var piece = cell.appendChild(document.createElement('div'));
-		piece.setAttribute("class", 'red piece');
-		piece.setAttribute("id", 'rpiece' + i);
-		}
-                cell.addEventListener('click',(function(el,r,c,index){
-                return function(){
-                    callback(el,r,c,index);
-		}
-            	})(cell,r,c,index),false);
-	    }
-	    if(c == 1 && r == 11) { 
-		index = 'yellowstart';
-		cell.setAttribute ("class", 'yellow space');
-		cell.setAttribute("id", index);
-		for(var i=1; i<=4; ++i) {
-            	var piece = cell.appendChild(document.createElement('div'));
-		piece.setAttribute("class", 'yellow piece');
-		piece.setAttribute("id", 'ypiece' + i);
-		}
-                cell.addEventListener('click',(function(el,r,c,index){
-                return function(){
-                    callback(el,r,c, index);
-		}
-            	})(cell,r,c,index),false);
-	    }
-	    if(c == 4 && r == 1) { 
-		index = 'greenstart';
-		cell.setAttribute ("class", 'green space');
-		cell.setAttribute("id", index);
-		for(var i=1; i<=4; ++i) {
-            	var piece = cell.appendChild(document.createElement('div'));
-		piece.setAttribute("class", 'green piece');
-		piece.setAttribute("id", 'gpiece' + i);
-		}
-                cell.addEventListener('click',(function(el,r,c,index){
-                return function(){
-                    callback(el,r,c, index);
-		}
-            	})(cell,r,c,index),false);
-	    }
-	    if(c == 11 && r == 14) { 
-		index = 'bluestart';
-		cell.setAttribute("class", 'blue space');
-		cell.setAttribute("id", index);		
-		for(var i=1; i<=4; ++i) {
-            	var piece = cell.appendChild(document.createElement('div'));
-		piece.setAttribute("class", 'blue piece');
-		piece.setAttribute("id", 'bpiece' + i);
-		}
-                cell.addEventListener('click',(function(el,r,c,index){
-                return function(){
-                    callback(el,r,c, index);
-		}
-            	})(cell,r,c,index),false);
-	    }
-	    if(c == 13 && r == 9) { 
-		i = 'bluehome';
-		cell.setAttribute ("class", 'blue space');
-		cell.setAttribute("id", i);
-                cell.addEventListener('click',(function(el,r,c,i){
-                return function(){
-                    callback(el,r,c, i);
-		}
-            	})(cell,r,c,i),false);
-                cell.innerHTML = 'home';
-	    }
-	    if(c == 2 && r == 6) { 
-		i = 'greenhome';
-		cell.setAttribute ("class", 'green space');
-		cell.setAttribute("id", i);
-                cell.addEventListener('click',(function(el,r,c,i){
-                return function(){
-                    callback(el,r,c, i);
-		}
-            	})(cell,r,c,i),false);
-                cell.innerHTML = 'home';
-	    }
-	    if(c == 6 && r == 13) { 
-		i = 'yellowhome';
-		cell.setAttribute ("class", 'yellow space');
-		cell.setAttribute("id", i);
-                cell.addEventListener('click',(function(el,r,c,i){
-                return function(){
-                    callback(el,r,c, i);
-		}
-            	})(cell,r,c,i),false);
-                cell.innerHTML = 'home';
-	    }
-	    if(c == 9 && r == 2) { 
-		i = 'redhome';
-		cell.setAttribute ("class", 'red space');
-		cell.setAttribute("id", i);
-                cell.addEventListener('click',(function(el,r,c,i){
-                return function(){
-                    callback(el,r,c, i);
-		}
-            	})(cell,r,c,i),false);
-                cell.innerHTML = 'home';
-	    }
-	    if(c == 15 && ((r >= 9 && r <= 13) || (r >= 1 && r <= 4))) { 
-		cell.setAttribute ("class", 'redslide space');
-	    }
-	    if(c == 0 && ((r >= 11 && r <= 14) || (r >= 2 && r <= 6))) { 
-		cell.setAttribute ("class", 'yellowslide space');
-	    }
-	    if(r == 15 && ((c >= 11 && c <= 14) || (c >= 2 && c <= 6))) { 
-		cell.setAttribute ("class", 'blueslide space');
-	    }
-	    if(r == 0 && ((c >= 9 && c <= 13) || (c >= 1 && c <= 4))) { 
-		cell.setAttribute ("class", 'greenslide space');
-	    }
+            if (c == 14 && r == 4) {
+                index = 'redstart';
+                cell.setAttribute("class", 'red space');
+                cell.setAttribute("id", index);
+                for (i = 1; i <= 4; ++i) {
+                    var piece = cell.appendChild(document.createElement('div'));
+                    piece.setAttribute("class", 'red piece');
+                    piece.setAttribute("id", 'rpiece' + i);
+                }
+                cell.addEventListener('click', (function (el, r, c, index) {
+                    return function () {
+                        callback(el, r, c, index);
+                    }
+                })(cell, r, c, index), false);
+            }
+            else if (c == 1 && r == 11) {
+                index = 'yellowstart';
+                cell.setAttribute("class", 'yellow space');
+                cell.setAttribute("id", index);
+                for (i = 1; i <= 4; ++i) {
+                    piece = cell.appendChild(document.createElement('div'));
+                    piece.setAttribute("class", 'yellow piece');
+                    piece.setAttribute("id", 'ypiece' + i);
+                }
+                cell.addEventListener('click', (function (el, r, c, index) {
+                    return function () {
+                        callback(el, r, c, index);
+                    }
+                })(cell, r, c, index), false);
+            }
+            else if (c == 4 && r == 1) {
+                index = 'greenstart';
+                cell.setAttribute("class", 'green space');
+                cell.setAttribute("id", index);
+                for (i = 1; i <= 4; ++i) {
+                    piece = cell.appendChild(document.createElement('div'));
+                    piece.setAttribute("class", 'green piece');
+                    piece.setAttribute("id", 'gpiece' + i);
+                }
+                cell.addEventListener('click', (function (el, r, c, index) {
+                    return function () {
+                        callback(el, r, c, index);
+                    }
+                })(cell, r, c, index), false);
+            }
+            else if (c == 11 && r == 14) {
+                index = 'bluestart';
+                cell.setAttribute("class", 'blue space');
+                cell.setAttribute("id", index);
+                for (var i = 1; i <= 4; ++i) {
+                    piece = cell.appendChild(document.createElement('div'));
+                    piece.setAttribute("class", 'blue piece');
+                    piece.setAttribute("id", 'bpiece' + i);
+                }
+                cell.addEventListener('click', (function (el, r, c, index) {
+                    return function () {
+                        callback(el, r, c, index);
+                    }
+                })(cell, r, c, index), false);
+            }
+            else if (c == 13 && r == 9) {
+                i = 'bluehome';
+                cell.setAttribute("class", 'blue space home');
+                cell.setAttribute("id", i);
+                cell.addEventListener('click', (function (el, r, c, i) {
+                    return function () {
+                        callback(el, r, c, i);
+                    }
+                })(cell, r, c, i), false);
+            }
+            else if (c == 2 && r == 6) {
+                i = 'greenhome';
+                cell.setAttribute("class", 'green space home');
+                cell.setAttribute("id", i);
+                cell.addEventListener('click', (function (el, r, c, i) {
+                    return function () {
+                        callback(el, r, c, i);
+                    }
+                })(cell, r, c, i), false);
+            }
+            else if (c == 6 && r == 13) {
+                i = 'yellowhome';
+                cell.setAttribute("class", 'yellow space home');
+                cell.setAttribute("id", i);
+                cell.addEventListener('click', (function (el, r, c, i) {
+                    return function () {
+                        callback(el, r, c, i);
+                    }
+                })(cell, r, c, i), false);
+            }
+            else if (c == 9 && r == 2) {
+                i = 'redhome';
+                cell.setAttribute("class", 'red space home');
+                cell.setAttribute("id", i);
+                cell.addEventListener('click', (function (el, r, c, i) {
+                    return function () {
+                        callback(el, r, c, i);
+                    }
+                })(cell, r, c, i), false);
+            }
+            if (c == 15 && ((r >= 9 && r <= 13) || (r >= 1 && r <= 4))) {
+                cell.setAttribute("class", 'redslide space');
+            }
+            if (c == 0 && ((r >= 11 && r <= 14) || (r >= 2 && r <= 6))) {
+                cell.setAttribute("class", 'yellowslide space');
+            }
+            if (r == 15 && ((c >= 11 && c <= 14) || (c >= 2 && c <= 6))) {
+                cell.setAttribute("class", 'blueslide space');
+            }
+            if (r == 0 && ((c >= 9 && c <= 13) || (c >= 1 && c <= 4))) {
+                cell.setAttribute("class", 'greenslide space');
+            }
 
 
         }
@@ -413,61 +394,35 @@ function initBoard( rows, cols, callback ){
     return grid;
 }
 
-
-/*
-function clickableBoard(callback){
-    var grid = document.createElement('div');
-    grid.className = 'grid';
-    for (var spaceid=0;spaceid<=14;++spaceid){
-        var space = grid.appendChild(document.createElement('div'));
-		space.setAttribute("class", 'clickable');
-		space.setAttribute("id", spaceid);
-                space.addEventListener('click',(function(el,spaceid){
-                return function(){
-                    callback(el,spaceid);
-		}
-            	})(space,spaceid),false);
-    }
-    for (var spaceid=15;spaceid<=29;++spaceid){
-        var space = grid.appendChild(document.createElement('div'));
-		space.setAttribute("class", 'clickable');
-		space.setAttribute("id", spaceid);
-                space.addEventListener('click',(function(el,spaceid){
-                return function(){
-                    callback(el,spaceid);
-		}
-            	})(space,spaceid),false);
-    }
-        }
-    }
-    return grid;
-}*/
 </script>
 </head>
 
-<body onload="graphIt();">
+<body onload="graphIt()">
 
 <div id="wrapper">
-<div id="board">
-<div id="debug">
-    <label for="movePieces"></label><input type="radio" name="debug" id="movePieces" value="move" /><br/>
-    <label for="bumpPieces"></label><input type="radio" name="debug" id="bumpPieces" value="bump" /><br/>
-    <label for="swapPieces"></label><input type="radio" name="debug" id="swapPieces" value="swap" /><br/>
-    <label for="slidePieces4"></label><input type="radio" name="debug" id="slidePieces4" value="slide1" /><br/>
-    <label for="slidePieces5"></label><input type="radio" name="debug" id="slidePieces5" value="slide2" /><br/>
+    <div id="board">
+        <div id="debug">
+            <label for="movePieces">Move</label><input type="radio" name="debug" id="movePieces" value="move"/><br/>
+            <label for="bumpPieces">Bump</label><input type="radio" name="debug" id="bumpPieces" value="bump"/><br/>
+            <label for="swapPieces">Swap</label><input type="radio" name="debug" id="swapPieces" value="swap"/><br/>
+            <label for="slidePieces4">Slide4</label><input type="radio" name="debug" id="slidePieces4" value="slide1"/><br/>
+            <label for="slidePieces5">Slide5</label><input type="radio" name="debug" id="slidePieces5" value="slide2"/><br/>
 
-</div>
-<div id="feedback">
-Last Move:<br/><br/>
-Current Player:<br/><br/>
-Draw a card to continue.
-</div>
-<div id="deck" onclick="drawCard()"><div style="margin-top:100px; margin-left:30px; -moz-transform:rotate(45deg);">Sorry!</div></div>
+        </div>
+        <div id="feedback">
+            Last Move:<br/><br/>
+            Current Player:<br/><br/>
+            Draw a card to continue.
+        </div>
+        <div id="feedbackdebug"></div>
+        <div id="deck" onclick="drawCard()">
+            <div style="margin-top:100px; margin-left:30px; -moz-transform:rotate(45deg);">Sorry!</div>
+        </div>
 
-<div id="discard"></div>
+        <div id="discard"></div>
 
 
-</div>
+    </div>
 </div>
 </body>
 </html>
