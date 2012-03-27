@@ -1,5 +1,5 @@
-#wrapper {margin:0 auto; width: 700px;}
-#board {margin:0 auto; width:500px}
+#wrapper {margin:0 auto; width: 1000px;}
+#board {margin:0 auto; width:1000px; position:absolute;}
 
 .grid { margin:1em auto; border-collapse:collapse;  table-layout:fixed;}
 .grid td {
@@ -24,11 +24,11 @@
 
 }
 .piece {
-    width:10px;
-    height:10px;
-    border-radius: 5px;
+    width:18px;
+    height:18px;
+    border-radius: 9px;
     border:1px solid #000;
-    margin:2px;
+    margin:1px;
     float:right;
 }
 .space {
@@ -36,10 +36,21 @@
     border:solid 1px #000;
 
 }
+.home {
+    background-image:url('resources/home.png');
+}
+#debug {
+    position:absolute;
+    left:730px;
+    top:210px;
+    width:30px;
+    height:80px;
+
+}
 #feedback {
     position:absolute;
-    left:425px;
-    top:185px;
+    left:300px;
+    top:210px;
     width:400px;
     height:80px;
     border:1px solid #000;
@@ -47,10 +58,19 @@
     padding:10px;
 
 }
+#feedbackdebug {
+    position:absolute;
+    left:600px;
+    top:210px;
+    width:100px;
+    height:80px;
+    font-size:14px;
+
+}
 #deck {
     position:absolute;
-    left:425px;
-    top:305px;
+    left:300px;
+    top:330px;
     width:200px;
     height:300px;
     border-radius:10px;
@@ -59,29 +79,28 @@
 }
 #discard {
     position:absolute;
-    left:645px;
-    top:305px;
-    width:140px;
-    height:225px;
+    left:520px;
+    top:330px;
+    width:170px;
+    height:250px;
     border-radius:10px;
     border:1px solid #000;
     font-size:100px;
-    padding-top:75px;
-    padding-left:60px;
+    padding-top:50px;
+    padding-left:30px;
 }
-/*
-.grid td.clicked {
-    background-color:yellow;
-    font-weight:bold; color:red;
-    border:solid 1px #000;
-    cursor:pointer;
+#description {
+    font-size:12px;
 }
-
-#x00 {
-border:solid 1px #000;
-
+.greenslide {
+    background-image:url('resources/greenslide.png');
 }
-#x00 {
-border:solid 1px #000;
-
-}*/
+.redslide {
+    background-image:url('resources/redslide.png');
+}
+.blueslide {
+    background-image:url('resources/blueslide.jpg');
+}
+.yellowslide {
+    background-image:url('resources/yellowslide.png');
+}
