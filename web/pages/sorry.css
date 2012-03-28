@@ -1,4 +1,5 @@
 #wrapper {margin:0 auto; width: 1000px;}
+/*Test */
 #board {margin:0 auto; width:1000px; position:absolute;}
 
 .grid { margin:1em auto; border-collapse:collapse;  table-layout:fixed;}
