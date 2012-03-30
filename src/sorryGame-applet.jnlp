@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jnlp spec="1.0+" codebase="" href="">
+    <information>
+        <title>Sorry Game</title>
+        <vendor>The Sorry Team</vendor>
+    </information>
+    <resources>
+        <!-- Application Resources -->
+        <j2se version="1.6+"
+              href="http://java.sun.com/products/autodl/j2se" />
+        <jar href="sorryGame.jar" main="true" />
+
+    </resources>
+    <applet-desc
+            name="Sorry Game Applet"
+            main-class="sorryGame.GameApplet"
+            width="1"
+            height="1">
+    </applet-desc>
+    <update check="background"/>
+</jnlp>
