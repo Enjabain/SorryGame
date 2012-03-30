@@ -1,15 +1,17 @@
+package sorryGame;
+
 /**
-* CS Program: PlayableSquare Programmer: Christopher Morse Date: 3/23/12
+* CS Program: sorryGame.PlayableSquare Programmer: Christopher Morse Date: 3/23/12
 */
 class PlayableSquare {
 
     private String playerPieceID;
     private boolean occupied;
     private int index;
+    private String positionID;
 
     PlayableSquare() {
-        this.occupied = occupied;
-        playerPieceID = getPlayerPieceID();
+        this.occupied = false;
     }
 
     public void setPlayerPieceID(String playerPieceID) {
@@ -34,5 +36,9 @@ class PlayableSquare {
 
     public int getIndex() {
         return index;
+    }
+
+    public String getPositionID() {
+        return positionID;
     }
 }

@@ -1,5 +1,7 @@
+package sorryGame;
+
 /**
- * CS Program: GameArray Programmer: Christopher Morse Date: 3/23/12
+ * CS Program: sorryGame.GameArray Programmer: Christopher Morse Date: 3/23/12
  */
 public class GameArray {
     private PlayableSquare[] gameArray, redHomeArray, greenHomeArray, blueHomeArray, yellowHomeArray, startArrays;
