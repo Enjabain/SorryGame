@@ -7,6 +7,8 @@ abstract public class Player {
 	private String name;
 	private Color color;
 
+	abstract void move();
+
 	public String getName() {
 		return name;
 	}

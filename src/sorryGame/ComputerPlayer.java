@@ -2,7 +2,7 @@ package sorryGame;
 
 import java.util.Random;
 
-public class ComputerPlayer extends Player {
+abstract public class ComputerPlayer extends Player {
 
 	public ComputerPlayer() {
 		super();
