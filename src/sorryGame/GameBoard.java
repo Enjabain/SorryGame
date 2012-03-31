@@ -1,9 +1,11 @@
 package sorryGame;
 
+import java.io.Serializable;
+
 /**
  * CS123 Program: sorryGame.GameBoard Programmer: Christopher Morse Date: 2/16/12
  */
-public class GameBoard {
+public class GameBoard implements Serializable {
 
     private PlayableSquare[] SGGameArray;
 

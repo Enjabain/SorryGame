@@ -6,6 +6,7 @@ import netscape.javascript.JSException;
 import netscape.javascript.JSObject;
 
 import java.applet.Applet;
+import java.io.*;
 
 public class GameApplet extends Applet {
 
@@ -28,16 +29,17 @@ public class GameApplet extends Applet {
      *                  was an error.
      */
     @SuppressWarnings("UnusedDeclaration")
-    public boolean validateMove(String pieceID, String fromPosition, String toPosition) {
+    public boolean validateMove(String pieceID, String fromPosition, String toPosition) throws Exception {
         boolean isValid = game.validateMove(pieceID, fromPosition, toPosition);
         if (isValid) {
-            sorryGame.PlayableSquare[] gameArray = game.gameBoard.getGameArray();
+            PlayableSquare[] gameArray = game.gameBoard.getGameArray();
             for (sorryGame.PlayableSquare square : gameArray) {
                 if (square.isOccupied()) {
                     pieceID = square.getPlayerPieceID();
                     window.call("movePiece", new Object[]{pieceID, toPosition});
                 }
             }
+            Serializer.serializeArray("player1.dat", gameArray);
         }
         return isValid;
     }
@@ -47,9 +49,9 @@ public class GameApplet extends Applet {
      * @return  updateComplete  True if update is successful; False otherwise.
      */
     @SuppressWarnings("UnusedDeclaration")
-    public boolean updatePositions() {
+    public boolean updatePositions() throws Exception {
         boolean updateComplete = false;
-        sorryGame.PlayableSquare[] gameArray = game.gameBoard.getGameArray();
+        PlayableSquare[] gameArray = game.gameBoard.getGameArray();
         for (sorryGame.PlayableSquare square : gameArray) {
             if (square.isOccupied()) {
                 String pieceID = square.getPlayerPieceID();
@@ -57,7 +59,48 @@ public class GameApplet extends Applet {
                 window.call("movePiece", new Object[]{pieceID, toIndex});
             }
         }
+        Serializer.serializeArray("player1.dat", gameArray);
         return updateComplete;
+    }
+
+    /**
+     * Internal class for Serializing/Deserializing serializable game state objects, namely 'gameArray'.
+     */
+    @SuppressWarnings("UnusedDeclaration")
+    public static class Serializer {
+
+        /**
+         * Serializes an array of object that implement Serializable.
+         * @param outFile       Name of the file the object will be serialized and saved to.
+         * @param gameObject    Array of objects of class that implements Serializable.
+         * @throws Exception
+         */
+        public static void serializeArray(String outFile, Serializable[] gameObject) throws Exception {
+            ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(outFile));
+            out.writeObject(gameObject);
+            out.flush();
+            out.close();
+        }
+
+        /**
+         * Deserializes a serialized object stored in file.
+         * @param inFile        Name of file containing the serialized object.
+         * @param gameObject    Object of class implementing serilizable that the object will be deserialized into.
+         * @throws IOException
+         * @throws ClassNotFoundException
+         */
+        public static void deserializeArray(String inFile, Serializable[] gameObject) throws IOException, ClassNotFoundException {
+            ObjectInputStream in = new ObjectInputStream(new FileInputStream(inFile));
+            gameObject = (Serializable[]) in.readObject();
+            in.close();
+
+            //Print out contents of deserialized int[]
+            System.out.print("Deserialized array: " + gameObject[0]);
+            for (int i=1; i<gameObject.length; i++) {
+                System.out.print(", " + gameObject[i]);
+            }
+            System.out.println();
+            }
     }
 }// GameApplet
 

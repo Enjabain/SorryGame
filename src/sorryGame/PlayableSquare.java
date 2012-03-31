@@ -1,9 +1,11 @@
 package sorryGame;
 
+import java.io.Serializable;
+
 /**
 * CS Program: sorryGame.PlayableSquare Programmer: Christopher Morse Date: 3/23/12
 */
-class PlayableSquare {
+class PlayableSquare implements Serializable {
 
     private String playerPieceID;
     private boolean occupied;
