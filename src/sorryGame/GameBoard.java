@@ -16,4 +16,8 @@ public class GameBoard implements Serializable {
     public void setSGGameArray(PlayableSquare[] SGGameArray) {
         this.SGGameArray = SGGameArray;
     }
+
+	public static Pawn[] getPawns(Player player) {
+		return null;
+	}
 }

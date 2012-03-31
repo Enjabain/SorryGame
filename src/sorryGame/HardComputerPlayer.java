@@ -4,7 +4,9 @@ public class HardComputerPlayer extends ComputerPlayer {
 
 	@Override
 	void move() {
-		// TODO Auto-generated method stub
+		Pawn[] pawns = GameBoard.getPawns(this);
+		for(Pawn pawn : pawns){
+		}
 	}
 
 }
