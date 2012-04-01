@@ -32,14 +32,12 @@ public class GameApplet extends Applet {
     public boolean validateMove(String pieceID, String fromPosition, String toPosition) throws Exception {
         boolean isValid = game.validateMove(pieceID, fromPosition, toPosition);
         if (isValid) {
-            PlayableSquare[] gameArray = game.gameBoard.getGameArray();
-            for (sorryGame.PlayableSquare square : gameArray) {
-                if (square.isOccupied()) {
-                    pieceID = square.getPlayerPieceID();
-                    window.call("movePiece", new Object[]{pieceID, toPosition});
-                }
-            }
-            Serializer.serializeArray("player1.dat", gameArray);
+            updatePositions(game.gameBoard.getGameArray(), "game");
+            updatePositions(game.gameBoard.getGreenHomeArray(), "g");
+            updatePositions(game.gameBoard.getRedHomeArray(), "r");
+            updatePositions(game.gameBoard.getBlueHomeArray(), "b");
+            updatePositions(game.gameBoard.getYellowHomeArray(), "y");
+            updatePositions(game.gameBoard.getStartArrays(), "start");
         }
         return isValid;
     }
@@ -49,17 +47,16 @@ public class GameApplet extends Applet {
      * @return  updateComplete  True if update is successful; False otherwise.
      */
     @SuppressWarnings("UnusedDeclaration")
-    public boolean updatePositions() throws Exception {
+    public boolean updatePositions(PlayableSquare[] array, String filingName) throws Exception {
         boolean updateComplete = false;
-        PlayableSquare[] gameArray = game.gameBoard.getGameArray();
-        for (sorryGame.PlayableSquare square : gameArray) {
+        for (sorryGame.PlayableSquare square : array) {
             if (square.isOccupied()) {
                 String pieceID = square.getPlayerPieceID();
                 String toIndex = square.getPositionID();
                 window.call("movePiece", new Object[]{pieceID, toIndex});
             }
         }
-        Serializer.serializeArray("player1.dat", gameArray);
+        Serializer.serializeArray((filingName + "array"), array);
         return updateComplete;
     }
 
