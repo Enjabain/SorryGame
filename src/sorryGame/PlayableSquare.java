@@ -3,42 +3,40 @@ package sorryGame;
 import java.io.Serializable;
 
 /**
-* CS Program: sorryGame.PlayableSquare Programmer: Christopher Morse Date: 3/23/12
+* CS Program: PlayableSquare Programmer: Al Moataz Hassan Date: 3/23/12
 */
 class PlayableSquare implements Serializable {
 
-    private String playerPieceID;
+    private String type;
+    private String squareColor;
     private boolean occupied;
-    private int index;
+    private int numOccupants;
+    private String playerPieceID;
     private String positionID;
-    private boolean slideStart;
-    private Integer slideEnd;
-    private String slideColor;
-    private final boolean startingPosition;
-    private final boolean finishPosition;
 
-    PlayableSquare(String positionID, boolean slideStart, Integer slideEnd, String color, boolean startingPosition, boolean finishPosition) {
-        this.slideColor = color;
-        this.startingPosition = startingPosition;
-        this.finishPosition = finishPosition;
-        this.occupied = false;
+    PlayableSquare(String positionID) {
+    	this.type = "regular";
+    	this.squareColor = "none";
+    	this.occupied = false;
+    	this.numOccupants = -1;
+    	this.playerPieceID = "none";
         this.positionID = positionID;
-        this.slideStart = slideStart;
-        this.slideEnd = slideEnd;
     }
 
-    @Override public String toString() {
-        String str = String.format("Position ID: %s, Currently Occupied: %s, Occupying Piece ID: %s, Is Slide Start: %s, Slide End index: %d, Slide Color: %s, Start: %s, Finish: %s", positionID, occupied, playerPieceID, slideStart, slideEnd, slideColor, startingPosition, finishPosition);
-
-        return str;
+    public void setType(String type){
+    	this.type = type;
     }
-
-    public void setPlayerPieceID(String playerPieceID) {
-        this.playerPieceID = playerPieceID;
+    
+    public String getType(){
+    	return type;
     }
-
-    public String getPlayerPieceID() {
-        return playerPieceID;
+    
+    public void setColor(String color){
+    	this.squareColor = color;
+    }
+    
+    public String getColor(){
+    	return squareColor;
     }
 
     public void setOccupied(boolean occupied) {
@@ -48,36 +46,107 @@ class PlayableSquare implements Serializable {
     public boolean isOccupied() {
         return occupied;
     }
-
-    public void setIndex(int index) {
-        this.index = index;
+    
+    public void setNumOccupants(int numOccupants){
+    	this.numOccupants = numOccupants;
+    }
+    
+    public int getNumOccupants(){
+    	return numOccupants;
+    }
+    
+    public void setPlayerPieceID(String playerPieceID) {
+        this.playerPieceID = playerPieceID;
     }
 
-    public int getIndex() {
-        return index;
+    public String getPlayerPieceID() {
+        return playerPieceID;
+    }
+    
+    public void setToStart(String color){
+    	this.type = "start";
+    	this.squareColor = color;
+    	this.occupied = false;
+    	this.numOccupants = 0;
+    	this.playerPieceID = "none";
+    }
+    
+    public void setToHome(String color){
+    	this.type = "home";
+    	this.squareColor = color;
+    	this.occupied = false;
+    	this.numOccupants = 0;
+    	this.playerPieceID = "none";
+    }
+    
+    public void setToSafetyZone(String color){
+    	this.type = "safetyZone";
+    	this.squareColor = color;
+    	this.occupied = false;
+    	this.numOccupants = -1;
+    	this.playerPieceID = "none";
+    }
+    
+    public void setToSliderStart(String color){
+    	this.type = "sliderStart";
+    	this.squareColor = color;
+    	this.occupied = false;
+    	this.numOccupants = -1;
+    	this.playerPieceID = "none";
+    }
+    
+    public void setToSliderMid(String color){
+    	this.type = "sliderMid";
+    	this.squareColor = color;
+    	this.occupied = false;
+    	this.numOccupants = -1;
+    	this.playerPieceID = "none";
+    }
+    
+    public void setToSliderEnd(String color){
+    	this.type = "sliderEnd";
+    	this.squareColor = color;
+    	this.occupied = false;
+    	this.numOccupants = -1;
+    	this.playerPieceID = "none";
+    }
+    
+    public void setToSlider(PlayableSquare[] gameArray, String color, int sliderSize, int start){
+    	gameArray[start].setToSliderStart(color);
+    	
+    	for (int i=start+1; i<start+(sliderSize-1); i++)
+    		gameArray[i].setToSliderMid(color);
+    	
+    	gameArray[start+sliderSize-1].setToSliderEnd(color);
+    }
+    
+    public void removePiece(){
+    	if (this.type == "start"){
+    		this.numOccupants--;
+    		if (this.numOccupants == 0)
+    			this.occupied = false;
+    	}
+    	else{
+    		this.numOccupants = 0;
+    		this.occupied = false;
+    		this.playerPieceID = "none";
+    	}
+    }
+    
+    public void putPiece(String id){
+    	if (this.type == "start"){
+    		this.numOccupants++;
+    		if (this.occupied == false)
+    			this.occupied = true;
+    	}
+    	else{
+    		this.numOccupants = 1;
+    		this.occupied = true;
+    		this.playerPieceID = id;
+    	}
     }
 
     public String getPositionID() {
         return positionID;
-    }
-
-    public boolean isSlideStart() {
-        return slideStart;
-    }
-
-    public Integer getSlideEnd() {
-        return slideEnd;
-    }
-
-    public String getSlideColor() {
-        return slideColor;
-    }
-
-    public boolean isStartingPosition() {
-        return startingPosition;
-    }
-
-    public boolean isFinishPosition() {
-        return finishPosition;
     }
 }

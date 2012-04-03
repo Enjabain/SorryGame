@@ -1,18 +1,37 @@
 package sorryGame;
 
 public class SorryGame {
-	public static void main(String[] args){
-		GameBoard game = new GameBoard();
-		Deck deck = new Deck();
-		game.print();
-		int card = deck.getCard().getRank();
+    GameBoard board;
+    Deck deck;
+    Deck.Card currentCard;
+
+    public SorryGame(){
+        GameBoard board = new GameBoard();
+        Deck deck = new Deck();
+
+    }
+
+    public boolean validateMove(String pieceID, int fromPosition, int toPosition, int fromPosition2, int toPosition2) {
+        if (currentCard.getRank() == 7){
+            return board.validateMove(currentCard.getRank(), pieceID, fromPosition, toPosition, fromPosition2, toPosition2);
+        }
+        else{ return board.validateMove(currentCard.getRank(), pieceID, fromPosition, toPosition, 0, 0);}
+
+    }
+
+    public static void main(String[] args){
+		//GameBoard game = new GameBoard();
+        SorryGame game = new SorryGame();
+		GameBoard board = game.board;
+        board.print();
+		int card = game.deck.getCard().getRank();
 		System.out.println(card);
-		if (game.validateMove(card, "g1", 57, 2, 1, 60)){
+		if (game.board.validateMove(card, "g1", 57, 2, 1, 60)){
             System.out.println("Move is Valid\n");
-            game.makeMove(card, "g1", 57, 2, 1, 60);
+            game.board.makeMove(card, "g1", 57, 2, 1, 60);
 		}
 		else
             System.out.println("Move is Invalid\n");
-		game.print();
+		game.board.print();
 	}
 }

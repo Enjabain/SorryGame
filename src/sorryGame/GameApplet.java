@@ -30,14 +30,14 @@ public class GameApplet extends Applet {
      */
     @SuppressWarnings("UnusedDeclaration")
     public boolean validateMove(String pieceID, String fromPosition, String toPosition) throws Exception {
-        boolean isValid = game.validateMove(pieceID, fromPosition, toPosition);
+        boolean isValid = game.validateMove(pieceID, Integer.parseInt(fromPosition), Integer.parseInt(toPosition), 0, 0);
         if (isValid) {
-            updatePositions(game.gameBoard.getGameArray(), "game");
-            updatePositions(game.gameBoard.getGreenHomeArray(), "g");
-            updatePositions(game.gameBoard.getRedHomeArray(), "r");
-            updatePositions(game.gameBoard.getBlueHomeArray(), "b");
-            updatePositions(game.gameBoard.getYellowHomeArray(), "y");
-            updatePositions(game.gameBoard.getStartArrays(), "start");
+            updatePositions(game.board.getGameArray(), "game");
+            updatePositions(game.board.getGreenHomeArray(), "g");
+            updatePositions(game.board.getRedHomeArray(), "r");
+            updatePositions(game.board.getBlueHomeArray(), "b");
+            updatePositions(game.board.getYellowHomeArray(), "y");
+            updatePositions(game.board.getStartArrays(), "start");
         }
         return isValid;
     }
