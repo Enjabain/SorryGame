@@ -26,6 +26,10 @@ public class GameBoard {
 		players.add(p);
 	}
 	
+	public ArrayList<Player> getPlayers(){
+		return players;
+	}
+	
 	public void print(){
 		for (int i=0; i<this.gameArray.length; i++){
 			System.out.println("Square " + i + " is a " + gameArray[i].getType() + " square with color set to: " + gameArray[i].getColor());
