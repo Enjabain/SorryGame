@@ -2,15 +2,15 @@ package sorryGame; /**
  * CS 110 Program: sorryGame.GameApplet Programmer: Christopher Morse Date: 3/21/12
  */
 
-import netscape.javascript.JSException;
 import netscape.javascript.JSObject;
+import netscape.javascript.JSException;
 
 import java.applet.Applet;
 import java.io.*;
 
 public class GameApplet extends Applet {
 
-    private SorryGame game = new SorryGame();
+    private SorryGame game = new SorryGame(false);
     private JSObject window;
 
     public void start() {
@@ -58,6 +58,15 @@ public class GameApplet extends Applet {
         }
         Serializer.serializeArray((filingName + "array"), array);
         return updateComplete;
+    }
+
+    /**
+    * Returns next String value of next card in the deck.
+    *
+    */
+    @SuppressWarnings("UnusedDeclaration")
+    public String drawCard(){
+        return game.drawCard();
     }
 
     /**

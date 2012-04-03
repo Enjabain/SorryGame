@@ -2,6 +2,7 @@ package sorryGame;
 
 import java.awt.Color;
 
+@SuppressWarnings("UnusedDeclaration")
 abstract public class Player {
 
 	private String name;

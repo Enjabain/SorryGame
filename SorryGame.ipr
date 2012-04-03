@@ -19,11 +19,11 @@
       </root>
     </artifact>
     <artifact type="jar" build-on-make="true" name="sorryGame:jar">
-      <output-path>$PROJECT_DIR$/out/artifacts/sorryGame_jar</output-path>
+      <output-path>$PROJECT_DIR$/out/production/SorryGame/web/pages</output-path>
       <root id="archive" name="sorryGame.jar">
         <element id="directory" name="META-INF">
           <element id="file-copy" path="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" />
-          <element id="file-copy" path="$PROJECT_DIR$/src/sorryGame-applet.jnlp" />
+          <element id="file-copy" path="$PROJECT_DIR$/web/pages/sorryGame-applet.jnlp" />
         </element>
         <element id="module-output" name="SorryGame" />
         <element id="extracted-dir" path="$PROJECT_DIR$/lib/javax.annotation.jar" path-in-jar="/" />
@@ -89,7 +89,7 @@
         <inspection_tool class="JSUnusedAssignment" enabled="false" level="WARNING" enabled_by_default="false" />
         <inspection_tool class="SpellCheckingInspection" enabled="true" level="TYPO" enabled_by_default="true">
           <option name="processCode" value="false" />
-          <option name="processLiterals" value="true" />
+          <option name="processLiterals" value="false" />
           <option name="processComments" value="false" />
         </inspection_tool>
       </profile>
@@ -330,7 +330,11 @@
     </option>
   </component>
   <component name="ProjectDictionaryState">
-    <dictionary name="christophermorse" />
+    <dictionary name="christophermorse">
+      <words>
+        <w>deserialized</w>
+      </words>
+    </dictionary>
   </component>
   <component name="ProjectModuleManager">
     <modules>

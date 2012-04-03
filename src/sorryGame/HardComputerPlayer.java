@@ -1,5 +1,6 @@
 package sorryGame;
 
+@SuppressWarnings("UnusedDeclaration")
 public class HardComputerPlayer extends ComputerPlayer {
 
 	@Override
