@@ -1,5 +1,7 @@
 package sorryGame;
 
+import java.util.ArrayList;
+
 /**
  * CS 205 Program: GameBoard
  * @author Al Moataz Hassan
@@ -14,8 +16,14 @@ public class GameBoard {
 	private int greenHomePosition, redHomePosition, blueHomePosition, yellowHomePosition;
 	private int greenSafetyIndex, redSafetyIndex, blueSafetyIndex, yellowSafetyIndex;
 	
+	private ArrayList<Player> players = new ArrayList<Player>();
+	
 	public GameBoard(){
 		initializeBoard();
+	}
+	
+	public void addPlayer(Player p){
+		players.add(p);
 	}
 	
 	public void print(){
