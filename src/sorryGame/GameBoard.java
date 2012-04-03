@@ -81,14 +81,14 @@ public class GameBoard {
     	blueHomeArray[5].setToHome("blue");
     	yellowHomeArray[5].setToHome("yellow");
         
-    	gameArray[0].setToSlider(gameArray, "green", 4, 1);
-    	gameArray[0].setToSlider(gameArray, "green", 5, 9);
-    	gameArray[0].setToSlider(gameArray, "red", 4, 16);
-    	gameArray[0].setToSlider(gameArray, "red", 5, 24);
-    	gameArray[0].setToSlider(gameArray, "blue", 4, 31);
-    	gameArray[0].setToSlider(gameArray, "blue", 5, 39);
-    	gameArray[0].setToSlider(gameArray, "yellow", 4, 46);
-    	gameArray[0].setToSlider(gameArray, "yellow", 5, 54);
+    	setToSlider(gameArray, "green", 4, 1);
+    	setToSlider(gameArray, "green", 5, 9);
+    	setToSlider(gameArray, "red", 4, 16);
+    	setToSlider(gameArray, "red", 5, 24);
+    	setToSlider(gameArray, "blue", 4, 31);
+    	setToSlider(gameArray, "blue", 5, 39);
+    	setToSlider(gameArray, "yellow", 4, 46);
+    	setToSlider(gameArray, "yellow", 5, 54);
     	
     	greenPawn = new Pawn[4];
     	redPawn = new Pawn[4];
@@ -129,6 +129,15 @@ public class GameBoard {
     	gameArray[26].setPlayerPieceID("g2");
     	
 	}
+	
+    public void setToSlider(PlayableSquare[] gameArray, String color, int sliderSize, int start){
+    	gameArray[start].setToSliderStart(color);
+    	
+    	for (int i=start+1; i<start+(sliderSize-1); i++)
+    		gameArray[i].setToSliderMid(color);
+    	
+    	gameArray[start+sliderSize-1].setToSliderEnd(color);
+    }
 
 //    public boolean validateMove(int card, String pieceID, int initialPosition, int finalPosition, int initialPosition2, int finalPosition2){
 //        boolean valid = false;

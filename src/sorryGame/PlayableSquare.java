@@ -111,15 +111,6 @@ class PlayableSquare implements Serializable {
     	this.playerPieceID = "none";
     }
     
-    public void setToSlider(PlayableSquare[] gameArray, String color, int sliderSize, int start){
-    	gameArray[start].setToSliderStart(color);
-    	
-    	for (int i=start+1; i<start+(sliderSize-1); i++)
-    		gameArray[i].setToSliderMid(color);
-    	
-    	gameArray[start+sliderSize-1].setToSliderEnd(color);
-    }
-    
     public void removePiece(){
     	if (this.type == "start"){
     		this.numOccupants--;
