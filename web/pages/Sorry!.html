@@ -145,9 +145,9 @@ function bumper(bump) {
 
 
 function drawCard() {
-    var card = Math.floor(Math.random() * 12) + 1;
+//    var card = Math.floor(Math.random() * 12) + 1;
     var discardpile = document.getElementById('discard');
-
+    var card = sorryApplet.drawCard();
     if (card == 1) {
         discardpile.innerHTML = '<div id="description">Must either start a man out or move one man forward 1 square.</div>' + card
     } else if (card == 2) {
@@ -168,8 +168,8 @@ function drawCard() {
         discardpile.innerHTML = '<div id="description">Move one man forward 11 squares or any one of your men may change places with any one opponent. Note: Forfeit move if you do not wish to change places and it is impossible to go forward 11 squares.</div>' + card
     } else if (card == 12) {
         discardpile.innerHTML = '<div id="description">Must move one man forward 12 squares.</div>' + card
-    } else if (card == 'Sorry') {
-        discardpile.innerHTML = '<div id="description">Must take one man from your start, place it on any square that is occupied by any opponent, and return that opponents man to its start. If there is no man on your start or no opponents man is on any square your move is forfeited.</div>' + card
+    } else if (card == 0) {
+        discardpile.innerHTML = '<div id="description">Must take one man from your start, place it on any square that is occupied by any opponent, and return that opponents man to its start. If there is no man on your start or no opponents man is on any square your move is forfeited.</div>' + "Sorry"
     }
 }
 

@@ -16,13 +16,14 @@ public class SorryGame {
     }
 
     public boolean validateMove(String pieceID, String fromPosition, String toPosition) {
-        return gameBoard.validateMove(pieceID, fromPosition, toPosition);
+//        return gameBoard.validateMove(pieceID, fromPosition, toPosition);
+        return true;
     }
     
-    public String drawCard(){
+    public int drawCard(){
         Deck.Card card = deck.getCard();
         gameBoard.setCurrentCard(card.getRank());
-        return card.toString();
+        return card.getRank();
     }
     
     private void initGame(){

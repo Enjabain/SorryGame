@@ -114,12 +114,12 @@ import java.util.*;
      * deck until empty.
      * @param args null argument.
      */
-    public static void main(String[] args) {
-        Deck deck = new Deck();
-        System.out.println(deck);
-        for (int i = 0; i < (2 * deck.DECK_SIZE); i++) {
-            System.out.println(deck.getCard());
-            System.out.println(deck);
-        }
-    }
+//    public static void main(String[] args) {
+//        Deck deck = new Deck();
+//        System.out.println(deck);
+//        for (int i = 0; i < (2 * deck.DECK_SIZE); i++) {
+//            System.out.println(deck.getCard());
+//            System.out.println(deck);
+//        }
+//    }
 }

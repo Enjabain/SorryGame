@@ -49,7 +49,7 @@ public class GameBoard implements Serializable {
     private void makeStartArray() {
         startArrays = new PlayableSquare[4];
         for (int i = 0; i < 4; i++) {
-            startArrays[i] = new PlayableSquare((SorryGame.COLORS[i] + "start"), false, null, SorryGame.COLORS[i], false, false);
+            startArrays[i] = new PlayableSquare((SorryGame.COLORS[i] + "start"), false, 0, SorryGame.COLORS[i], false, false);
         }
 
     }
@@ -60,16 +60,16 @@ public class GameBoard implements Serializable {
         blueHomeArray = new PlayableSquare[7];
         yellowHomeArray = new PlayableSquare[7];
         for (int i = 1; i < 7; i++) {
-            greenHomeArray[i] = new PlayableSquare((SorryGame.COLORS[0] + Integer.toString(i)), false, null, SorryGame.COLORS[0], false, false);
+            greenHomeArray[i] = new PlayableSquare((SorryGame.COLORS[0] + Integer.toString(i)), false, 0, SorryGame.COLORS[0], false, false);
         }
         for (int i = 1; i < 7; i++) {
-            redHomeArray[i] = new PlayableSquare((SorryGame.COLORS[1] + Integer.toString(i)), false, null, SorryGame.COLORS[1], false, false);
+            redHomeArray[i] = new PlayableSquare((SorryGame.COLORS[1] + Integer.toString(i)), false, 0, SorryGame.COLORS[1], false, false);
         }
         for (int i = 1; i < 7; i++) {
-            blueHomeArray[i] = new PlayableSquare((SorryGame.COLORS[2] + Integer.toString(i)), false, null, SorryGame.COLORS[2], false, false);
+            blueHomeArray[i] = new PlayableSquare((SorryGame.COLORS[2] + Integer.toString(i)), false, 0, SorryGame.COLORS[2], false, false);
         }
         for (int i = 1; i < 7; i++) {
-            yellowHomeArray[i] = new PlayableSquare((SorryGame.COLORS[3] + Integer.toString(i)), false, null, SorryGame.COLORS[3], false, false);
+            yellowHomeArray[i] = new PlayableSquare((SorryGame.COLORS[3] + Integer.toString(i)), false, 0, SorryGame.COLORS[3], false, false);
         }
         greenHomeArray[0] = null; redHomeArray[0] = null; blueHomeArray[0] = null; yellowHomeArray[0] = null;
     }
@@ -178,17 +178,17 @@ public class GameBoard implements Serializable {
         return valid;
     }
 
-    public static void main(String[] args) {
-        PlayableSquare[] testGame = (new GameBoard(4)).gameArray;
-        for (int i = 1; i < testGame.length; i++) {
-            System.out.println(testGame[i].toString());
-            if( i % 15 == 0){System.out.println();}
-        }
-        PlayableSquare[] greenArray = (new GameBoard(4)).greenHomeArray;
-        for (int i = 1; i < greenArray.length; i++) {
-            System.out.println(greenArray[i].toString());
-        }
-    }
+//    public static void main(String[] args) {
+//        PlayableSquare[] testGame = (new GameBoard(4)).gameArray;
+//        for (int i = 1; i < testGame.length; i++) {
+//            System.out.println(testGame[i].toString());
+//            if( i % 15 == 0){System.out.println();}
+//        }
+//        PlayableSquare[] greenArray = (new GameBoard(4)).greenHomeArray;
+//        for (int i = 1; i < greenArray.length; i++) {
+//            System.out.println(greenArray[i].toString());
+//        }
+//    }
     //    public PlayableSquare[][] getCombinedArrays() {
 //        PlayableSquare[][] combinedArrays = {gameArray, greenHomeArray, redHomeArray, blueHomeArray, yellowHomeArray,
 //                                             startArrays};
