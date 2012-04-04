@@ -1,5 +1,7 @@
 package sorryGame;
 
+import sorryGame.Deck.Card;
+
 public class HumanPlayer extends Player {
 
 	public HumanPlayer(GameBoard board) {
@@ -7,7 +9,7 @@ public class HumanPlayer extends Player {
 	}
 
 	@Override
-	void move() {
+	void move(Card card) {
 	}
 
 }

@@ -1,6 +1,8 @@
 package sorryGame;
 
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * CS 205 Program: GameBoard
@@ -37,6 +39,16 @@ public class GameBoard {
 				System.out.println(" - Occupied by: " + gameArray[i].getPlayerPieceID());
 		}
 	}
+	
+	public Map<String, Pawn[]> getPawns(){
+		Map<String, Pawn[]> pawns = new TreeMap<String, Pawn[]>();
+		pawns.put("green", greenPawn);
+		pawns.put("red", redPawn);
+		pawns.put("blue", bluePawn);
+		pawns.put("yellow", yellowPawn);
+		return pawns;
+	}
+	
 	/**
 	 * Initialises the board array, setting all of the sliders and their location, storing the indices of the different
 	 * locations of the 'special' squares: the home, the start, and the safety zone squares. It also sets up all of the
