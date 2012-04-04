@@ -9,6 +9,9 @@ import java.util.TreeMap;
  * @author Al Moataz Hassan
  * Date: 03/23/2012
  */
+
+// Just testing if I can make changes to the code
+
 public class GameBoard {
 	
 	private PlayableSquare[] gameArray, redHomeArray, greenHomeArray, blueHomeArray, yellowHomeArray;
