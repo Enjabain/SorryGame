@@ -1,4 +1,4 @@
-package sorryGame;
+package src;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -127,19 +127,19 @@ public class GameBoard {
     		greenPawn[i] = new Pawn();
     		greenPawn[i].setColor("green");
     		greenPawn[i].setNum(i);
-    		greenPawn[i].setLocation(-1);
+    		greenPawn[i].setLocation(0);
     		redPawn[i] = new Pawn();
     		redPawn[i].setColor("red");
     		redPawn[i].setNum(i);
-    		redPawn[i].setLocation(-1);
+    		redPawn[i].setLocation(0);
     		bluePawn[i] = new Pawn();
     		bluePawn[i].setColor("blue");
     		bluePawn[i].setNum(i);
-    		bluePawn[i].setLocation(-1);
+    		bluePawn[i].setLocation(0);
     		yellowPawn[i] = new Pawn();
     		yellowPawn[i].setColor("yellow");
     		yellowPawn[i].setNum(i);
-    		yellowPawn[i].setLocation(-1);
+    		yellowPawn[i].setLocation(0);
     	}
     	
     	greenStart.setNumOccupants(4);
@@ -262,7 +262,7 @@ public class GameBoard {
             	 * I think I've resolved this bug but I cannot run the code on my machine.
             	 */
             	
-            	else if ((((safteyZoneIndex - initialPosition)%60 + 60)%60 + ((homePosition - finalPosition)%60) + 60)%60 + 1 == 4)
+            	else if ((((safetyZoneIndex - initialPosition)%60 + 60)%60 + ((homePosition - finalPosition)%60) + 60)%60 + 1 == 4)
             		return true;
             	else 
             		return false;            

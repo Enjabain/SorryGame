@@ -22,13 +22,13 @@ public class SorryGame {
     public static void main(String[] args){
 		//GameBoard game = new GameBoard();
         SorryGame game = new SorryGame();
-		GameBoard board = game.board;
+		//GameBoard board = game.board;
         board.print();
 		int card = game.deck.getCard().getRank();
 		System.out.println(card);
-		if (game.board.validateMove(card, "g1", 57, 2, 1, 60)){
+		if (game.board.validateMove(4, "g1", 64, 65, 0, 0)){
             System.out.println("Move is Valid\n");
-            game.board.makeMove(card, "g1", 57, 2, 1, 60);
+            game.board.makeMove(4, "g1", 64, 65, 0, 0);
 		}
 		else
             System.out.println("Move is Invalid\n");
