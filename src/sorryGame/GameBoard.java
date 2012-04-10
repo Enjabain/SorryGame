@@ -262,7 +262,7 @@ public class GameBoard {
             	 * I think I've resolved this bug but I cannot run the code on my machine.
             	 */
             	
-            	else if ((((safteyZoneIndex - initialPosition)%60 + 60)%60 + ((homePosition - finalPosition)%60) + 60)%60 + 1 == 4)
+            	else if ((((safetyZoneIndex - initialPosition)%60 + 60)%60 + ((homePosition - finalPosition)%60) + 60)%60 + 1 == 4)
             		return true;
             	else 
             		return false;            
