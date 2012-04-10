@@ -70,9 +70,9 @@ function graphIt() {
 
 function validateMove(index1, index2) {
     var pieceID = document.getElementById(index1).firstChild.getAttribute("id");
-    var valid = sorryApplet.validateMove(pieceID, index1, index2);
+    var valid = (document.getElementById('sorryApplet')).validateMove(pieceID, index1, index2);
     if (valid) {
-        var itWorked = sorryApplet.updatePositions(pieceID, index2);
+        var itWorked = document.getElementById('sorryApplet').updatePositions(pieceID, index2);
     }
 }
 
@@ -145,9 +145,9 @@ function bumper(bump) {
 
 
 function drawCard() {
-    var card = Math.floor(Math.random() * 12) + 1;
+//    var card = Math.floor(Math.random() * 12) + 1;
     var discardpile = document.getElementById('discard');
-
+    var card = document.getElementById('sorryApplet').drawCard();
     if (card == 1) {
         discardpile.innerHTML = '<div id="description">Must either start a man out or move one man forward 1 square.</div>' + card
     } else if (card == 2) {
@@ -168,8 +168,8 @@ function drawCard() {
         discardpile.innerHTML = '<div id="description">Move one man forward 11 squares or any one of your men may change places with any one opponent. Note: Forfeit move if you do not wish to change places and it is impossible to go forward 11 squares.</div>' + card
     } else if (card == 12) {
         discardpile.innerHTML = '<div id="description">Must move one man forward 12 squares.</div>' + card
-    } else if (card == 'Sorry') {
-        discardpile.innerHTML = '<div id="description">Must take one man from your start, place it on any square that is occupied by any opponent, and return that opponents man to its start. If there is no man on your start or no opponents man is on any square your move is forfeited.</div>' + card
+    } else if (card == 0) {
+        discardpile.innerHTML = '<div id="description">Must take one man from your start, place it on any square that is occupied by any opponent, and return that opponents man to its start. If there is no man on your start or no opponents man is on any square your move is forfeited.</div>' + "Sorry"
     }
 }
 
@@ -393,10 +393,18 @@ function initBoard(rows, cols, callback) {
 <body onload="graphIt()">
 <script src="http://www.java.com/js/deployJava.js"></script>
 <script>
-    var attributes = { id:'sorryApplet', code:'sorryGame.GameApplet', width:1, height:1};
-    var parameters = {jnlp_href:'sorryGame-applet.jnlp'};
-    deployJava.runApplet(attributes, parameters, '1.6');
+    var attributes = { id:'sorryApplet', code:'sorryGame.GameApplet', archive:'sorryGame.jar', width:1, height:1};
+    var parameters = {fontSize:16, jnlp_href:'sorryGame-applet.jnlp'};
+    var version = '1.6';
+    deployJava.runApplet(attributes, parameters, version);
 </script>
+
+<!--<object id="sorryApplet" type="application/x-java-applet" width="1" height="1">-->
+    <!--<param name="code" value="sorryGame.GameApplet" />-->
+    <!--<param name="archive" value="sorryGame.jar" />-->
+    <!--<param name="mayscript" value="true" />-->
+    <!--<param name="id" value="sorryApplet" />-->
+<!--</object>-->
 
 <div id="wrapper">
     <div id="board">
@@ -421,8 +429,6 @@ function initBoard(rows, cols, callback) {
         </div>
 
         <div id="discard"></div>
-
-
     </div>
 </div>
 </body>
