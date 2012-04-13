@@ -17,6 +17,7 @@ public class GameBoard {
 	
 	private PlayableSquare[] gameArray, redHomeArray, greenHomeArray, blueHomeArray, yellowHomeArray;
 	private PlayableSquare greenStart, redStart, blueStart, yellowStart;
+    private PlayableSquare[] startArrays;
 	private Pawn[] greenPawn, redPawn, bluePawn, yellowPawn;
 	private int greenStartPosition, redStartPosition, blueStartPosition, yellowStartPosition;
 	private int greenHomePosition, redHomePosition, blueHomePosition, yellowHomePosition;
@@ -72,6 +73,8 @@ public class GameBoard {
         redStart = new PlayableSquare("rstart");
         blueStart = new PlayableSquare("bstart");
         yellowStart = new PlayableSquare("ystart");
+
+        startArrays = new PlayableSquare[]{greenStart, redStart, blueStart, yellowStart};
         
         greenStart.setToStart("green");
         redStart.setToStart("red");
@@ -124,37 +127,28 @@ public class GameBoard {
     	yellowPawn = new Pawn[4];
     	
     	for (int i=0; i<4; i++){
-    		greenPawn[i] = new Pawn();
-    		greenPawn[i].setColor("green");
-    		greenPawn[i].setNum(i);
-    		greenPawn[i].setLocation(-1);
-    		redPawn[i] = new Pawn();
-    		redPawn[i].setColor("red");
-    		redPawn[i].setNum(i);
-    		redPawn[i].setLocation(-1);
-    		bluePawn[i] = new Pawn();
-    		bluePawn[i].setColor("blue");
-    		bluePawn[i].setNum(i);
-    		bluePawn[i].setLocation(-1);
-    		yellowPawn[i] = new Pawn();
-    		yellowPawn[i].setColor("yellow");
-    		yellowPawn[i].setNum(i);
-    		yellowPawn[i].setLocation(-1);
+    		greenPawn[i] = new Pawn("green", i, -1);
+    		redPawn[i] = new Pawn("red", i, -1);
+    		bluePawn[i] = new Pawn("blue", i, -1);
+    		yellowPawn[i] = new Pawn("yellow", i, -1);
     	}
-    	
-    	greenStart.setNumOccupants(4);
-    	redStart.setNumOccupants(4);
-    	blueStart.setNumOccupants(4);
-    	yellowStart.setNumOccupants(4);
-    	
-    	gameArray[6].setOccupied(true);
-    	gameArray[6].setPlayerPieceID("g1");
-    	
-    	gameArray[4].setOccupied(true);
-    	gameArray[4].setPlayerPieceID("b1");
-    	
-    	gameArray[26].setOccupied(true);
-    	gameArray[26].setPlayerPieceID("g2");
+
+        for (PlayableSquare square:startArrays) {
+            square.setNumOccupants(4);
+            square.setOccupied(true);
+        }
+
+
+
+
+//    	gameArray[6].setOccupied(true);
+//    	gameArray[6].setPlayerPieceID("g1");
+//
+//    	gameArray[4].setOccupied(true);
+//    	gameArray[4].setPlayerPieceID("b1");
+//
+//    	gameArray[26].setOccupied(true);
+//    	gameArray[26].setPlayerPieceID("g2");
     	
 	}
 	
@@ -328,7 +322,8 @@ public class GameBoard {
     			if (initialPosition == -1){
     				if (color == 'g'){
     					greenStart.removePiece();
-    					if (gameArray[greenStartPosition].isOccupied() && gameArray[greenStartPosition].getPlayerPieceID().toCharArray()[0] != 'g'){
+    					if (gameArray[greenStartPosition].isOccupied() && gameArray[greenStartPosition].getPlayerPieceID().toCharArray()[0] != 'g ')
+                                                                                                                 {
     						if (gameArray[greenStartPosition].getPlayerPieceID().toCharArray()[0] == 'r')
     							redStart.putPiece("red");
     						if (gameArray[greenStartPosition].getPlayerPieceID().toCharArray()[0] == 'b')

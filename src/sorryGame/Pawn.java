@@ -9,11 +9,15 @@ public class Pawn {
 	private String id;
 	private int location;
 	
-	public Pawn(){
-		this.color = "None";
-		this.num = 0;
-		this.id = this.color.toCharArray()[0] + Integer.toHexString(this.num);
+	public Pawn(String color, int number,int location){
+		this.color = color;
+		this.num = number;
+        this.location = location;
+		this.setID();
 	}
+    public Pawn(){
+
+    }
 	
 	public void setColor(String color){
 		this.color = color;
@@ -34,7 +38,7 @@ public class Pawn {
 	}
 	
 	public void setID(){
-		this.id = this.color.toCharArray()[0] + Integer.toHexString(this.num);
+		this.id = this.color.toCharArray()[0] + Integer.toString(this.num);
 	}
 	
 	public String getID(){

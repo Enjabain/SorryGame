@@ -37,7 +37,7 @@ public class GameApplet extends Applet {
             updatePositions(game.board.getRedHomeArray(), "r");
             updatePositions(game.board.getBlueHomeArray(), "b");
             updatePositions(game.board.getYellowHomeArray(), "y");
-            updatePositions(game.board.getStartArrays(), "start");
+//            updatePositions(game.board.getStartArrays(), "start");
         }
         return isValid;
     }
@@ -56,7 +56,7 @@ public class GameApplet extends Applet {
                 window.call("movePiece", new Object[]{pieceID, toIndex});
             }
         }
-        Serializer.serializeArray((filingName + "array"), array);
+//        Serializer.serializeArray((filingName + "array"), array);
         return updateComplete;
     }
 
