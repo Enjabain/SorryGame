@@ -19,7 +19,7 @@
       </root>
     </artifact>
     <artifact type="jar" build-on-make="true" name="sorryGame:jar">
-      <output-path>$PROJECT_DIR$/out/artifacts/sorryGame_jar</output-path>
+      <output-path>$PROJECT_DIR$/web/pages</output-path>
       <root id="archive" name="sorryGame.jar">
         <element id="directory" name="META-INF">
           <element id="file-copy" path="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" />
