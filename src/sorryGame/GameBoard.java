@@ -233,7 +233,7 @@ public class GameBoard {
                     return true;
                 else if (card == 1 && initialPosition == homePosition && finalPosition == safetyZoneIndex)
                     return true;
-                else if (card == 2 && ((((homePosition - initialPosition)%60 + 60)%60 + ((finalPosition - safetyZoneIndex)%60) + 60)%60 + 1 == 2))
+                else if (card == 2 && ((((homePosition - initialPosition)%60 + 60)%60 + ((finalPosition - safetyZoneIndex)%(safetyZoneIndex+6)) + (safetyZoneIndex+6))%(safetyZoneIndex+6) + 1 == 2))
                 	return true;
                 else
                     return false;
@@ -242,7 +242,7 @@ public class GameBoard {
         			return false;
                 if (((finalPosition - initialPosition)%60 + 60)%60 == card)
                     return true;
-                else if ((((homePosition - initialPosition)%60 + 60)%60 + ((finalPosition - safetyZoneIndex)%60) + 60)%60 + 1 == card)
+                else if ((((homePosition - initialPosition)%60 + 60)%60 + ((finalPosition - safetyZoneIndex)%(safetyZoneIndex+6)) + (safetyZoneIndex+6))%(safetyZoneIndex+6) + 1 == card)
             		return true;
                 else if (card == 10 && (((initialPosition - finalPosition)%60 + 60)%60 == 1))
                     return true;
@@ -255,13 +255,6 @@ public class GameBoard {
         			return false;
             	if (((initialPosition - finalPosition)%60 + 60)%60 == 4)
                     return true;
-            	// With the following combination: Card=4, initial=64, final=65, initial2=0, final2=0 
-            	// if statement below incorrectly returns true.
-            	
-            	/*
-            	 * I think I've resolved this bug but I cannot run the code on my machine.
-            	 */
-            	
             	else if ((((safetyZoneIndex - initialPosition)%60 + 60)%60 + ((homePosition - finalPosition)%60) + 60)%60 + 1 == 4)
             		return true;
             	else 
@@ -271,13 +264,11 @@ public class GameBoard {
                     return true;
             	else if ((((finalPosition - initialPosition)%60 + 60)%60) + (((finalPosition2 - initialPosition2)%60 + 60)%60) == 7)
             		return true;
-            	// With the following combination: Card=7, initial=64, final=65, initial2=0, final2=0
-            	// if statement below incorrectly returns true.
-            	else if (((((homePosition - initialPosition)%60 + 60)%60 + ((finalPosition - safetyZoneIndex)%60) + 60)%60 + 1) + ((((homePosition - initialPosition2)%60 + 60)%60 + ((finalPosition2 - safetyZoneIndex)%60) + 60)%60 + 1) == 7)
+            	else if (((((homePosition - initialPosition)%60 + 60)%60 + ((finalPosition - safetyZoneIndex)%(safetyZoneIndex+6)) + (safetyZoneIndex+6))%(safetyZoneIndex+6) + 1) + ((((homePosition - initialPosition2)%60 + 60)%60 + ((finalPosition2 - safetyZoneIndex)%(safetyZoneIndex+6)) + (safetyZoneIndex+6))%(safetyZoneIndex+6) + 1) == 7)
             		return true;
-            	else if (((((finalPosition - initialPosition)%60 + 60)%60)) + (((((homePosition - initialPosition2)%60 + 60)%60 + ((finalPosition2 - safetyZoneIndex)%60) + 60)%60 + 1)) == 7)
+            	else if (((((finalPosition - initialPosition)%60 + 60)%60)) + (((((homePosition - initialPosition2)%60 + 60)%60 + ((finalPosition2 - safetyZoneIndex)%(safetyZoneIndex+6)) + (safetyZoneIndex+6))%(safetyZoneIndex+6) + 1)) == 7)
             		return true;
-            	else if ((((((homePosition - initialPosition)%60 + 60)%60 + ((finalPosition - safetyZoneIndex)%60) + 60)%60 + 1)) + ((((finalPosition2 - initialPosition2)%60 + 60)%60)) == 7)
+            	else if ((((((homePosition - initialPosition)%60 + 60)%60 + ((finalPosition - safetyZoneIndex)%(safetyZoneIndex+6)) + (safetyZoneIndex+6))%(safetyZoneIndex+6) + 1)) + ((((finalPosition2 - initialPosition2)%60 + 60)%60)) == 7)
             		return true;
             	else
             		return false;           
@@ -286,7 +277,7 @@ public class GameBoard {
         			return false;
             	if (((finalPosition - initialPosition)%60 + 60)%60 == 11)
                     return true;
-            	else if ((((homePosition - initialPosition)%60 + 60)%60 + ((finalPosition - safetyZoneIndex)%60) + 60)%60 + 1 == 11)
+            	else if ((((homePosition - initialPosition)%60 + 60)%60 + ((finalPosition - safetyZoneIndex)%(safetyZoneIndex+6)) + (safetyZoneIndex+6))%(safetyZoneIndex+6) + 1 == 11)
             		return true;
             	else if (initialPosition >= 0 && initialPosition <= 59 && gameArray[finalPosition].isOccupied()){
             		if (gameArray[finalPosition].getPlayerPieceID().toCharArray()[0] != color)
