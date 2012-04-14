@@ -23,13 +23,13 @@ public class SorryGame {
         boolean valid = false;
         if (currentCard.getRank() == 7){
              if(board.validateMove(currentCard.getRank(), pieceID, fromPosition, toPosition, fromPosition2, toPosition2)){
-                 board.makeMove(currentCard.getRank(), pieceID, fromPosition, toPosition, fromPosition2, toPosition2);
+                 board.makeMove(currentCard.getRank(), pieceID, fromPosition, toPosition);
                  valid = true;
              }
         }
         else{ 
         	if (board.validateMove(currentCard.getRank(), pieceID, fromPosition, toPosition, 0, 0)){
-                board.makeMove(currentCard.getRank(), pieceID, fromPosition, toPosition, 0, 0);
+                board.makeMove(currentCard.getRank(), pieceID, fromPosition, toPosition);
                 valid = true;
             }
         }

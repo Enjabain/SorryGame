@@ -330,12 +330,6 @@ public class GameBoard {
 	 * @param pieceID: the id (e.g. "g1", "b4", "y2"...) of the piece being moved.
 	 * @param initialPosition: current position of the piece being moved.
 	 * @param finalPosition: the position to which the piece/pawn should go.
-	 * @param initialPosition2: this second initial position is used in the case of the card 7 (where a player may move two pawns).
-	 * @param finalPosition2: this second final position is also used if 2 pawns are being moved. 
-	 * (initialPosition2 and finalPosition2 are always 0 for all cards).
-	 * 
-	 * This method is still not complete, the code is very messy and needs changing to be more efficient, below is the code for
-	 * moving a piece from start to beginning of the board.
      */
     public void makeMove(int card, String pieceID, int initialPosition, int finalPosition){
 		
@@ -356,7 +350,7 @@ public class GameBoard {
     		currentPiece = currentHomeArray[initialPosition].getPiece();
     		currentHomeArray[initialPosition].removePiece(currentPiece);
     	}
-    	///////////////////////////////////////////////////////////////////////
+    	/////////////////////////////////////////////////ß//////////////////////
     	if (finalPosition >= 0 && finalPosition <= 59){
     		if (gameArray[finalPosition].isOccupied() && (finalPosition-initialPosition) == 11)
     			bump(finalPosition);
