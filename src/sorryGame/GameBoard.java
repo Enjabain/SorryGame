@@ -15,12 +15,13 @@ import java.util.TreeMap;
 
 public class GameBoard {
 	
-	private PlayableSquare[] gameArray, redHomeArray, greenHomeArray, blueHomeArray, yellowHomeArray;
-	private PlayableSquare greenStart, redStart, blueStart, yellowStart;
+	private PlayableSquare[] gameArray, redHomeArray, greenHomeArray, blueHomeArray, yellowHomeArray, currentHomeArray;
+	private PlayableSquare greenStart, redStart, blueStart, yellowStart, currentStart;
 	private Pawn[] greenPawn, redPawn, bluePawn, yellowPawn;
 	private int greenStartPosition, redStartPosition, blueStartPosition, yellowStartPosition;
 	private int greenHomePosition, redHomePosition, blueHomePosition, yellowHomePosition;
 	private int greenSafetyIndex, redSafetyIndex, blueSafetyIndex, yellowSafetyIndex;
+	int startPosition, homePosition, safetyZoneIndex;	
 	
 	private ArrayList<Player> players = new ArrayList<Player>();
 	
@@ -166,11 +167,48 @@ public class GameBoard {
     	
     	gameArray[start+sliderSize-1].setToSliderEnd(color);
     }
-
-//    public boolean validateMove(int card, String pieceID, int initialPosition, int finalPosition, int initialPosition2, int finalPosition2){
-//        boolean valid = false;
-//        return valid;
-//    }
+    
+    public void setCurrentPawnInfo(String pieceID){
+    	char color = pieceID.toCharArray()[0];
+		if (color == 'g') {
+			startPosition = greenStartPosition;
+			homePosition = greenHomePosition;
+			safetyZoneIndex = greenSafetyIndex;
+			currentStart = greenStart;
+			currentHomeArray = greenHomeArray;
+		}
+		else if (color == 'r') {
+			startPosition = redStartPosition;
+			homePosition = redHomePosition;
+			safetyZoneIndex = redSafetyIndex;
+			currentStart = redStart;
+			currentHomeArray = redHomeArray;
+		}
+		else if (color == 'b') {
+			startPosition = blueStartPosition;
+			homePosition = blueHomePosition;
+			safetyZoneIndex = blueSafetyIndex;
+			currentStart = blueStart;
+			currentHomeArray = blueHomeArray;
+		}
+		else if (color == 'y') {
+			startPosition = yellowStartPosition;
+			homePosition = yellowHomePosition;
+			safetyZoneIndex = yellowSafetyIndex;
+			currentStart = yellowStart;
+			currentHomeArray = yellowHomeArray;
+		}
+		else{
+			/*
+			 * Output Error Message
+			 */
+			startPosition = 1;
+			homePosition = 1;
+			safetyZoneIndex = 60;
+			currentStart = greenStart;
+			currentHomeArray = greenHomeArray;
+		}
+    }
 
 	/**
 	 * Validates that a move is possible. Does not look at other pieces (i.e. bumps) but only checks to see if the move 
@@ -187,41 +225,9 @@ public class GameBoard {
 	 * @return This method returns a boolean that says if a move is possible or not
 	 */
     public boolean validateMove(int card, String pieceID, int initialPosition, int finalPosition, int initialPosition2, int finalPosition2){
-    	//Get current card from Deck Class
-		
-		int startPosition, homePosition, safetyZoneIndex;
-		Pawn temp = new Pawn();
-		char color = pieceID.toCharArray()[0];
-		if (color == 'g') {
-			temp.setColor("green");
-			startPosition = greenStartPosition;
-			homePosition = greenHomePosition;
-			safetyZoneIndex = greenSafetyIndex;
-		}
-		else if (color == 'r') {
-			temp.setColor("red");
-			startPosition = redStartPosition;
-			homePosition = redHomePosition;
-			safetyZoneIndex = redSafetyIndex;
-		}
-		else if (color == 'b') {
-			temp.setColor("blue");
-			startPosition = blueStartPosition;
-			homePosition = blueHomePosition;
-			safetyZoneIndex = blueSafetyIndex;
-		}
-		else if (color == 'y') {
-			temp.setColor("yellow");
-			startPosition = yellowStartPosition;
-			homePosition = yellowHomePosition;
-			safetyZoneIndex = yellowSafetyIndex;
-		}
-		else{
-			temp.setColor("none");
-			startPosition = 1;
-			homePosition = 1;
-			safetyZoneIndex = 60;
-		}
+    	
+    	char color = pieceID.toCharArray()[0];
+    	this.setCurrentPawnInfo(pieceID);
     	
 	    switch (card){
             case 1: case 2:
@@ -305,6 +311,11 @@ public class GameBoard {
         System.out.println("Something went wrong!");// Still need to work on this.
         return false;
     }
+    
+    public void bump(int position){
+    	
+    }
+    
     /**
      * This method actually implements the move once it has been validated. It is here that things like bumps, slides and switches
      * are taken care of. This function takes the information about the move that will be performed and updates the gameArray.
@@ -319,80 +330,37 @@ public class GameBoard {
 	 * This method is still not complete, the code is very messy and needs changing to be more efficient, below is the code for
 	 * moving a piece from start to beginning of the board.
      */
-    public void makeMove(int card, String pieceID, int initialPosition, int finalPosition, int initialPosition2, int finalPosition2){
+    public void makeMove(int card, String pieceID, int initialPosition, int finalPosition){
 		
 		char color = pieceID.toCharArray()[0];
+    	this.setCurrentPawnInfo(pieceID);
     	
-    	switch (card){
-    		case 1:
-    			if (initialPosition == -1){
-    				if (color == 'g'){
-    					greenStart.removePiece();
-    					if (gameArray[greenStartPosition].isOccupied() && gameArray[greenStartPosition].getPlayerPieceID().toCharArray()[0] != 'g'){
-    						if (gameArray[greenStartPosition].getPlayerPieceID().toCharArray()[0] == 'r')
-    							redStart.putPiece("red");
-    						if (gameArray[greenStartPosition].getPlayerPieceID().toCharArray()[0] == 'b')
-    							blueStart.putPiece("blue");
-    						if (gameArray[greenStartPosition].getPlayerPieceID().toCharArray()[0] == 'y')
-    							yellowStart.putPiece("yellow");
-    						gameArray[greenStartPosition].removePiece();
-    					}
-    					gameArray[greenStartPosition].putPiece(pieceID);
-    					greenPawn[pieceID.toCharArray()[1]-48].setLocation(greenStartPosition);
-    				}
-    				else if (color == 'r'){
-    					redStart.removePiece();
-    					if (gameArray[redStartPosition].isOccupied() && gameArray[redStartPosition].getPlayerPieceID().toCharArray()[0] != 'r'){
-    						if (gameArray[redStartPosition].getPlayerPieceID().toCharArray()[0] == 'g')
-    							greenStart.putPiece("red");
-    						if (gameArray[redStartPosition].getPlayerPieceID().toCharArray()[0] == 'b')
-    							blueStart.putPiece("blue");
-    						if (gameArray[redStartPosition].getPlayerPieceID().toCharArray()[0] == 'y')
-    							yellowStart.putPiece("yellow");
-    						gameArray[redStartPosition].removePiece();
-    					}
-    					gameArray[redStartPosition].putPiece(pieceID);
-    					redPawn[pieceID.toCharArray()[1]].setLocation(redStartPosition);
-    				}
-    				else if (color == 'b'){
-    					blueStart.removePiece();
-    					if (gameArray[blueStartPosition].isOccupied() && gameArray[blueStartPosition].getPlayerPieceID().toCharArray()[0] != 'b'){
-    						if (gameArray[blueStartPosition].getPlayerPieceID().toCharArray()[0] == 'r')
-    							redStart.putPiece("red");
-    						if (gameArray[blueStartPosition].getPlayerPieceID().toCharArray()[0] == 'g')
-    							greenStart.putPiece("blue");
-    						if (gameArray[blueStartPosition].getPlayerPieceID().toCharArray()[0] == 'y')
-    							yellowStart.putPiece("yellow");
-    						gameArray[blueStartPosition].removePiece();
-    					}
-    					gameArray[blueStartPosition].putPiece(pieceID);
-    					bluePawn[pieceID.toCharArray()[1]].setLocation(blueStartPosition);
-    				}
-    				else if (color == 'y'){
-    					yellowStart.removePiece();
-    					if (gameArray[yellowStartPosition].isOccupied() && gameArray[yellowStartPosition].getPlayerPieceID().toCharArray()[0] != 'y'){
-    						if (gameArray[yellowStartPosition].getPlayerPieceID().toCharArray()[0] == 'r')
-    							redStart.putPiece("red");
-    						if (gameArray[yellowStartPosition].getPlayerPieceID().toCharArray()[0] == 'b')
-    							blueStart.putPiece("blue");
-    						if (gameArray[yellowStartPosition].getPlayerPieceID().toCharArray()[0] == 'g')
-    							yellowStart.putPiece("yellow");
-    						gameArray[yellowStartPosition].removePiece();
-    					}
-    					gameArray[yellowStartPosition].putPiece(pieceID);
-    					yellowPawn[pieceID.toCharArray()[1]].setLocation(yellowStartPosition);
-    				}
-    			}
-    			else {
-    				// If the piece is to be moved just one space forward.
-    			}
-    		/* This code is being revised.	
-    		case 2:
-    		case 3: case 4: case 5: case 8: case 10: case 12:
-    		case 7:
-    		case 11:
-    		case 0:
-    		*/
+    	Pawn currentPiece = gameArray[initialPosition].getPiece();
+    	
+    	if (initialPosition == -1){
+    		currentPiece = currentStart.getPiece();
+    		currentStart.removePiece(currentPiece);
+    	}
+    	else if (initialPosition >= 0 && initialPosition <= 59){
+    		currentPiece = gameArray[initialPosition].getPiece();
+    		gameArray[initialPosition].removePiece(currentPiece);
+    	}
+    	else if (initialPosition > 59){
+    		currentPiece = currentHomeArray[initialPosition].getPiece();
+    		currentHomeArray[initialPosition].removePiece(currentPiece);
+    	}
+    	///////////////////////////////////////////////////////////////////////
+    	if (finalPosition >= 0 && finalPosition <= 59){
+    		if (gameArray[finalPosition].isOccupied() && (finalPosition-initialPosition) == 11)
+    			bump(finalPosition);
+    		else if (gameArray[finalPosition].isOccupied() && (finalPosition-initialPosition) != 11){
+    			Pawn tempPiece = gameArray[finalPosition].getPiece();
+        		gameArray[initialPosition].putPiece(tempPiece);
+    		}
+    		gameArray[finalPosition].putPiece(currentPiece);
+    	}
+    	else if (finalPosition > 59){
+    		currentHomeArray[finalPosition].putPiece(currentPiece);
     	}
     }
 

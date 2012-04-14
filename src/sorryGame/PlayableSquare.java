@@ -1,6 +1,8 @@
 package sorryGame;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
 * CS Program: PlayableSquare Programmer: Al Moataz Hassan Date: 3/23/12
@@ -11,6 +13,7 @@ class PlayableSquare implements Serializable {
     private String squareColor;
     private boolean occupied;
     private int numOccupants;
+    private List<Pawn> pawnList = new ArrayList<Pawn>();
     private String playerPieceID;
     private String positionID;
 
@@ -102,7 +105,8 @@ class PlayableSquare implements Serializable {
     	this.numOccupants = -1;
     	this.playerPieceID = "none";
     }
-    
+
+
     public void setToSliderEnd(String color){
     	this.type = "sliderEnd";
     	this.squareColor = color;
@@ -111,32 +115,40 @@ class PlayableSquare implements Serializable {
     	this.playerPieceID = "none";
     }
     
-    public void removePiece(){
+    public void removePiece(Pawn pawn){
     	if (this.type == "start"){
     		this.numOccupants--;
     		if (this.numOccupants == 0)
     			this.occupied = false;
+            this.pawnList.remove(pawn);
     	}
     	else{
     		this.numOccupants = 0;
     		this.occupied = false;
     		this.playerPieceID = "none";
+            this.pawnList.clear();
     	}
     }
     
-    public void putPiece(String id){
+    public void putPiece(Pawn pawn){
     	if (this.type == "start"){
     		this.numOccupants++;
-    		if (this.occupied == false)
-    			this.occupied = true;
+    		this.occupied = true;
+            this.pawnList.add(pawn);
     	}
     	else{
     		this.numOccupants = 1;
     		this.occupied = true;
-    		this.playerPieceID = id;
+    		this.playerPieceID = pawn.getID();
+            this.pawnList.clear();
+            this.pawnList.add(0, pawn);
     	}
     }
-
+    
+    public Pawn getPiece(){
+    	return this.pawnList.get(0);
+    }
+    
     public String getPositionID() {
         return positionID;
     }

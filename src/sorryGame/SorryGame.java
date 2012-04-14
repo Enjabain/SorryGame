@@ -26,7 +26,7 @@ public class SorryGame {
 		System.out.println(card);
 		if (game.board.validateMove(7, "g1", 58, 62, 0, 0)){
             System.out.println("Move is Valid\n");
-            game.board.makeMove(7, "g1", 58, 62, 0, 0);
+            game.board.makeMove(7, "g1", 58, 62);
 		}
 		else
             System.out.println("Move is Invalid\n");
