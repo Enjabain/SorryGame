@@ -4,8 +4,8 @@ import java.util.Random;
 
 abstract public class ComputerPlayer extends Player {
 
-	public ComputerPlayer() {
-		super();
+	public ComputerPlayer(GameBoard board) {
+		super(board);
 		setName(getRandomName());
 	}
 

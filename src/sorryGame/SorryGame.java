@@ -1,46 +1,35 @@
 package sorryGame;
 
-/**
- * CS Program: sorryGame.SorryGame Programmer: Christopher Morse Date: 3/23/12
- */
-@SuppressWarnings("FieldCanBeLocal")
 public class SorryGame {
-    static final String[] COLORS =  {"g", "r", "b", "y"};
-    GameBoard gameBoard;
-    private Deck deck;
-    private Pawn[] pawns;
-    
-    public SorryGame(boolean savedGame){
-        if(savedGame){restoreGame();}
-        else {initGame();}
+    GameBoard board;
+    Deck deck;
+    Deck.Card currentCard;
+
+    public SorryGame(){
+        board = new GameBoard();
+        deck = new Deck();
     }
 
-    public boolean validateMove(String pieceID, String fromPosition, String toPosition) {
-//        return gameBoard.validateMove(pieceID, fromPosition, toPosition);
-        return true;
-    }
-    
-    public int drawCard(){
-        Deck.Card card = deck.getCard();
-        gameBoard.setCurrentCard(card.getRank());
-        return card.getRank();
-    }
-    
-    private void initGame(){
-        deck = new Deck();
-        gameBoard = new GameBoard(deck.getCard().getRank());
-        pawns = new Pawn[16];
-        PlayableSquare[] currentArray = gameBoard.startArrays;
-        int count = 0;
-        for (int i = 0; i < 4; i++){
-            for (int j = 0; j < 4; j++){
-                 pawns[count] = new Pawn(i, currentArray, (COLORS[i] + "start"), (COLORS[i] + "piece" + Integer.toString(j + 1)), COLORS[i]);
-            }
+    public boolean validateMove(String pieceID, int fromPosition, int toPosition, int fromPosition2, int toPosition2) {
+        if (currentCard.getRank() == 7){
+            return board.validateMove(currentCard.getRank(), pieceID, fromPosition, toPosition, fromPosition2, toPosition2);
         }
-        gameBoard.setPawns(pawns);
+        else{ 
+        	return board.validateMove(currentCard.getRank(), pieceID, fromPosition, toPosition, 0, 0);
+        }
     }
-    
-    private void restoreGame(){
-        
-    }
+
+    public static void main(String[] args){
+        SorryGame game = new SorryGame();
+        game.board.print();
+		int card = game.deck.getCard().getRank();
+		System.out.println(card);
+		if (game.board.validateMove(7, "g1", 58, 62, 0, 0)){
+            System.out.println("Move is Valid\n");
+            game.board.makeMove(7, "g1", 58, 62, 0, 0);
+		}
+		else
+            System.out.println("Move is Invalid\n");
+		game.board.print();
+	}
 }

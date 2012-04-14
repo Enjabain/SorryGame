@@ -1,14 +1,22 @@
 package sorryGame;
 
 import java.awt.Color;
+import sorryGame.Deck.Card;
 
 @SuppressWarnings("UnusedDeclaration")
 abstract public class Player {
+	
+	//reference to the board
+	protected GameBoard board;
 
 	private String name;
-	private Color color;
+	private String color;
 
-	abstract void move();
+	abstract void move(Card card);
+	
+	public Player(GameBoard board){
+		this.board = board;
+	}
 
 	public String getName() {
 		return name;
@@ -18,11 +26,11 @@ abstract public class Player {
 		this.name = name;
 	}
 
-	public Color getColor() {
+	public String getColor() {
 		return color;
 	}
 
-	public void setColor(Color color) {
+	public void setColor(String color) {
 		this.color = color;
 	}
 }

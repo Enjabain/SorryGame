@@ -1,51 +1,55 @@
 package sorryGame;
 
-@SuppressWarnings("UnusedDeclaration")
+/**
+ * CS Program: Pawn Programmer: Al Moataz Hassan Date: 3/23/12
+ */
 public class Pawn {
-    private int positionIndex;
-    private String positionID, pieceID, color;
-    private PlayableSquare[] currentArray;
-    
-    public Pawn (int positionIndex, PlayableSquare[] currentArray, String positionID, String pieceID, String color){
-        setPositionIndex(positionIndex);
-        setCurrentArray(currentArray);
-        setPostionID(positionID);
-        setPieceID(pieceID);
-        setColor(color);
+	private String color;
+	private int num;
+	private String id;
+	private int location;
+	
+	public Pawn(String color, int number,int location){
+		this.color = color;
+		this.num = number;
+        this.location = location;
+		this.setID();
+	}
+    public Pawn(){
+
     }
-    
-    public void setPositionIndex(int positionIndex){
-        this.positionIndex = positionIndex;
-    }
-    public int getPositionIndex(){
-        return positionIndex;
-    }
-    
-    public void setCurrentArray(PlayableSquare[] currentArray){
-        this.currentArray = currentArray;
-    }
-    public PlayableSquare[] getCurrentArray(){
-        return currentArray;
-    }
-    
-    public void setPostionID(String positionID){
-        this.positionID = positionID;
-    }
-    public String getPositionID(){
-        return positionID;
-    }
-    
-    public void setPieceID(String pieceID){
-        this.pieceID = pieceID;
-    }
-    public String pieceID(){
-        return pieceID;
-    }
-    
-    public void setColor(String color){
-        this.color = color;
-    }
-    public String getColor(){
-        return color;
-    }
+	
+	public void setColor(String color){
+		this.color = color;
+		this.setID();
+	}
+	
+	public String getColor(){
+		return this.color;
+	}
+	
+	public void setNum(int num){
+		this.num = num;
+		this.setID();
+	}
+	
+	public int getNum(){
+		return this.num;
+	}
+	
+	public void setID(){
+		this.id = this.color.toCharArray()[0] + Integer.toString(this.num);
+	}
+	
+	public String getID(){
+		return this.id;
+	}
+	
+	public void setLocation(int l){
+		this.location = l;
+	}
+	
+	public int getLocation(){
+		return this.location;
+	}
 }

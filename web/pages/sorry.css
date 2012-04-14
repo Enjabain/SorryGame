@@ -2,7 +2,7 @@
 /*Test */
 #board {margin:0 auto; width:1000px; position:absolute;}
 
-.grid { margin:1em auto; border-collapse:collapse;  table-layout:fixed;}
+.grid { margin:1em auto; border-collapse:collapse;  table-layout:fixed; background-image:url('resources/boardvint.png');}
 .grid td {
     width:50px; height:50px;
     text-align:center;
@@ -93,6 +93,7 @@
 #description {
     font-size:12px;
 }
+/*
 .greenslide {
     background-image:url('resources/greenslide.png');
 }
@@ -105,3 +106,4 @@
 .yellowslide {
     background-image:url('resources/yellowslide.png');
 }
+ */
