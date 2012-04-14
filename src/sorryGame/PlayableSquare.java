@@ -144,7 +144,11 @@ class PlayableSquare implements Serializable {
             this.pawnList.add(0, pawn);
     	}
     }
-
+    
+    public Pawn getPiece(){
+    	return this.pawnList.get(0);
+    }
+    
     public String getPositionID() {
         return positionID;
     }
