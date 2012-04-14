@@ -2,3 +2,4 @@
 *.iws
 out
 .classpath
+/nbproject/private/
