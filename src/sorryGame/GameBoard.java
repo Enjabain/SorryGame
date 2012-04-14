@@ -17,7 +17,7 @@ public class GameBoard {
 	
 	private PlayableSquare[] gameArray, redHomeArray, greenHomeArray, blueHomeArray, yellowHomeArray;
 	private PlayableSquare greenStart, redStart, blueStart, yellowStart;
-    private PlayableSquare[] startArrays;
+    PlayableSquare[] startArrays;
 	private Pawn[] greenPawn, redPawn, bluePawn, yellowPawn;
 	private int greenStartPosition, redStartPosition, blueStartPosition, yellowStartPosition;
 	private int greenHomePosition, redHomePosition, blueHomePosition, yellowHomePosition;
@@ -32,6 +32,16 @@ public class GameBoard {
 	public void addPlayer(Player p){
 		players.add(p);
 	}
+
+//    private void placePawns(){
+//        for (Pawn pawn:greenPawn){
+//            PlayableSquare[] currentArray = pawn.getArray();
+//            PlayableSquare position = currentArray[pawn.getLocation()];
+//            if(position.isOccupied()) {position.removePawn(position.getPawn());}
+//            position.setOccupied(true);
+//            position.addPawn(pawn);
+//        }
+//    }
 	
 	public ArrayList<Player> getPlayers(){
 		return players;
@@ -127,19 +137,22 @@ public class GameBoard {
     	yellowPawn = new Pawn[4];
     	
     	for (int i=0; i<4; i++){
-    		greenPawn[i] = new Pawn("green", i, -1);
-    		redPawn[i] = new Pawn("red", i, -1);
-    		bluePawn[i] = new Pawn("blue", i, -1);
-    		yellowPawn[i] = new Pawn("yellow", i, -1);
+    		greenPawn[i] = new Pawn("green", "gstart", i, -1, startArrays);
+    		redPawn[i] = new Pawn("red", "rstart", i, -1, startArrays);
+    		bluePawn[i] = new Pawn("blue", "bstart", i, -1, startArrays);
+    		yellowPawn[i] = new Pawn("yellow", "ystart", i, -1, startArrays);
     	}
 
         for (PlayableSquare square:startArrays) {
             square.setNumOccupants(4);
             square.setOccupied(true);
         }
-
-
-
+        for (int i = 0; i < 4; i++){
+            greenStart.putPiece(greenPawn[i]);
+            redStart.putPiece(redPawn[i]);
+            blueStart.putPiece(bluePawn[i]);
+            yellowStart.putPiece(bluePawn[i]);
+        }
 
 //    	gameArray[6].setOccupied(true);
 //    	gameArray[6].setPlayerPieceID("g1");
@@ -321,60 +334,66 @@ public class GameBoard {
     		case 1:
     			if (initialPosition == -1){
     				if (color == 'g'){
-    					greenStart.removePiece();
-    					if (gameArray[greenStartPosition].isOccupied() && gameArray[greenStartPosition].getPlayerPieceID().toCharArray()[0] != 'g ')
-                                                                                                                 {
+    					greenStart.removePiece(greenPawn[pieceID.charAt(1)]);
+    					if (gameArray[greenStartPosition].isOccupied() && gameArray[greenStartPosition].getPlayerPieceID().toCharArray()[0] != 'g'){
     						if (gameArray[greenStartPosition].getPlayerPieceID().toCharArray()[0] == 'r')
-    							redStart.putPiece("red");
+    							redStart.putPiece(redPawn[gameArray[greenStartPosition].getPlayerPieceID().charAt(1)]);
     						if (gameArray[greenStartPosition].getPlayerPieceID().toCharArray()[0] == 'b')
-    							blueStart.putPiece("blue");
+    							blueStart.putPiece(bluePawn[gameArray[greenStartPosition].getPlayerPieceID().charAt(1)]);
     						if (gameArray[greenStartPosition].getPlayerPieceID().toCharArray()[0] == 'y')
-    							yellowStart.putPiece("yellow");
-    						gameArray[greenStartPosition].removePiece();
+    							yellowStart.putPiece(yellowPawn[gameArray[greenStartPosition].getPlayerPieceID().charAt(1)]);
     					}
-    					gameArray[greenStartPosition].putPiece(pieceID);
+                        gameArray[greenStartPosition].putPiece(greenPawn[pieceID.charAt(1)]);
+                        greenPawn[pieceID.charAt(1)].setArray(gameArray);
     					greenPawn[pieceID.toCharArray()[1]-48].setLocation(greenStartPosition);
     				}
     				else if (color == 'r'){
-    					redStart.removePiece();
+    					redStart.removePiece(redPawn[pieceID.charAt(1)]);;
     					if (gameArray[redStartPosition].isOccupied() && gameArray[redStartPosition].getPlayerPieceID().toCharArray()[0] != 'r'){
     						if (gameArray[redStartPosition].getPlayerPieceID().toCharArray()[0] == 'g')
-    							greenStart.putPiece("red");
+    							greenStart.putPiece(greenPawn[gameArray[redStartPosition].getPlayerPieceID().charAt(1)]);
     						if (gameArray[redStartPosition].getPlayerPieceID().toCharArray()[0] == 'b')
-    							blueStart.putPiece("blue");
+    							blueStart.putPiece(bluePawn[gameArray[redStartPosition].getPlayerPieceID().charAt(1)]);
     						if (gameArray[redStartPosition].getPlayerPieceID().toCharArray()[0] == 'y')
-    							yellowStart.putPiece("yellow");
-    						gameArray[redStartPosition].removePiece();
+    							yellowStart.putPiece(yellowPawn[gameArray[redStartPosition].getPlayerPieceID().charAt(1)]);
     					}
-    					gameArray[redStartPosition].putPiece(pieceID);
+    					gameArray[redStartPosition].putPiece(redPawn[pieceID.charAt(1)]);
+                        redPawn[pieceID.charAt(1)].setArray(gameArray);
     					redPawn[pieceID.toCharArray()[1]].setLocation(redStartPosition);
     				}
-    				else if (color == 'b'){
-    					blueStart.removePiece();
-    					if (gameArray[blueStartPosition].isOccupied() && gameArray[blueStartPosition].getPlayerPieceID().toCharArray()[0] != 'b'){
-    						if (gameArray[blueStartPosition].getPlayerPieceID().toCharArray()[0] == 'r')
-    							redStart.putPiece("red");
-    						if (gameArray[blueStartPosition].getPlayerPieceID().toCharArray()[0] == 'g')
-    							greenStart.putPiece("blue");
-    						if (gameArray[blueStartPosition].getPlayerPieceID().toCharArray()[0] == 'y')
-    							yellowStart.putPiece("yellow");
-    						gameArray[blueStartPosition].removePiece();
-    					}
-    					gameArray[blueStartPosition].putPiece(pieceID);
-    					bluePawn[pieceID.toCharArray()[1]].setLocation(blueStartPosition);
-    				}
+    				else if (color == 'b') {
+                        blueStart.removePiece(bluePawn[Character.getNumericValue(pieceID.charAt(1))]);
+                        System.out.printf("blue index: %d", Character.getNumericValue(pieceID.charAt(1)));
+                        if (gameArray[blueStartPosition].isOccupied() && gameArray[blueStartPosition].getPlayerPieceID()
+                                                                                                     .toCharArray()[0] != 'b') {
+                            if (gameArray[blueStartPosition].getPlayerPieceID().toCharArray()[0] == 'r') {
+                                redStart.putPiece(redPawn[gameArray[blueStartPosition].getPlayerPieceID().charAt(1)]);
+                            }
+                            if (gameArray[blueStartPosition].getPlayerPieceID().toCharArray()[0] == 'g') {
+                                greenStart.putPiece(greenPawn[gameArray[blueStartPosition].getPlayerPieceID().charAt(
+                                        1)]);
+                            }
+                            if (gameArray[blueStartPosition].getPlayerPieceID().toCharArray()[0] == 'y') {
+                                yellowStart.putPiece(yellowPawn[gameArray[blueStartPosition].getPlayerPieceID().charAt(
+                                        1)]);
+                            }
+                        }
+                        gameArray[blueStartPosition].putPiece(bluePawn[Character.getNumericValue(pieceID.charAt(1))]);
+                        bluePawn[Character.getNumericValue(pieceID.charAt(1))].setArray(gameArray);
+                        bluePawn[Character.getNumericValue(pieceID.charAt(1))].setLocation(blueStartPosition);
+                    }
     				else if (color == 'y'){
-    					yellowStart.removePiece();
+    					yellowStart.removePiece(yellowPawn[pieceID.charAt(1)]);
     					if (gameArray[yellowStartPosition].isOccupied() && gameArray[yellowStartPosition].getPlayerPieceID().toCharArray()[0] != 'y'){
     						if (gameArray[yellowStartPosition].getPlayerPieceID().toCharArray()[0] == 'r')
-    							redStart.putPiece("red");
+    							redStart.putPiece(redPawn[gameArray[yellowStartPosition].getPlayerPieceID().charAt(1)]);
     						if (gameArray[yellowStartPosition].getPlayerPieceID().toCharArray()[0] == 'b')
-    							blueStart.putPiece("blue");
+    							blueStart.putPiece(bluePawn[gameArray[yellowStartPosition].getPlayerPieceID().charAt(1)]);
     						if (gameArray[yellowStartPosition].getPlayerPieceID().toCharArray()[0] == 'g')
-    							yellowStart.putPiece("yellow");
-    						gameArray[yellowStartPosition].removePiece();
+    							greenStart.putPiece(greenPawn[gameArray[yellowStartPosition].getPlayerPieceID().charAt(1)]);
     					}
-    					gameArray[yellowStartPosition].putPiece(pieceID);
+                        gameArray[yellowStartPosition].putPiece(yellowPawn[pieceID.charAt(1)]);
+                        yellowPawn[pieceID.charAt(1)].setArray(gameArray);
     					yellowPawn[pieceID.toCharArray()[1]].setLocation(yellowStartPosition);
     				}
     			}

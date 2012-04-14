@@ -71,9 +71,9 @@ function graphIt() {
 function validateMove(index1, index2) {
     var pieceID = document.getElementById(index1).firstChild.getAttribute("id");
     var valid = (document.getElementById('sorryApplet')).validateMove(pieceID, index1, index2);
-    if (valid) {
-        var itWorked = document.getElementById('sorryApplet').updatePositions(pieceID, index2);
-    }
+//    if (valid) {
+//        var itWorked = document.getElementById('sorryApplet').updatePositions(pieceID, index2);
+//    }
 }
 
 function movePiece(index1, index2) {
@@ -174,14 +174,14 @@ function drawCard() {
 }
 
 function initBoard(rows, cols, callback) {
-    var ileft = 60;
-    var iright = 17;
-    var itop = 1;
-    var ibottom = 46;
-    var ired = 5;
-    var iblue = 5;
-    var igreen = 1;
-    var iyellow = 1;
+    var ileft = 59;
+    var iright = 16;
+    var itop = 0;
+    var ibottom = 45;
+    var ired = 66;
+    var iblue = 72;
+    var igreen = 60;
+    var iyellow = 78;
     var grid = document.createElement('table');
     grid.className = 'grid';
     for (var r = 0; r < rows; ++r) {
@@ -231,7 +231,7 @@ function initBoard(rows, cols, callback) {
             }
 
             if (c == 2 && r >= 1 && r <= 5) {
-                var index = "g" + igreen;
+                var index = "" + igreen;
                 cell.setAttribute("class", 'green space');
                 cell.setAttribute("id", index);
                 cell.addEventListener('click', (function (el, r, c, index) {
@@ -242,7 +242,7 @@ function initBoard(rows, cols, callback) {
                 ++igreen;
             }
             if (r == 2 && c >= 10 && c <= 14) {
-                index = "r" + ired;
+                index = "" + ired;
                 cell.setAttribute("class", 'red space');
                 cell.setAttribute("id", index);
                 cell.addEventListener('click', (function (el, r, c, index) {
@@ -253,7 +253,7 @@ function initBoard(rows, cols, callback) {
                 --ired;
             }
             if (c == 13 && r >= 10 && r <= 14) {
-                index = "b" + iblue;
+                index = "" + iblue;
                 cell.setAttribute("class", 'blue space');
                 cell.setAttribute("id", index);
                 cell.addEventListener('click', (function (el, r, c, index) {
@@ -264,7 +264,7 @@ function initBoard(rows, cols, callback) {
                 --iblue;
             }
             if (r == 13 && c >= 1 && c <= 5) {
-                index = "y" + iyellow;
+                index = "" + iyellow;
                 cell.setAttribute("class", 'yellow space');
                 cell.setAttribute("id", index);
                 cell.addEventListener('click', (function (el, r, c, index) {
@@ -282,7 +282,7 @@ function initBoard(rows, cols, callback) {
                 for (i = 1; i <= 4; ++i) {
                     var piece = cell.appendChild(document.createElement('div'));
                     piece.setAttribute("class", 'red piece');
-                    piece.setAttribute("id", 'rpiece' + i);
+                    piece.setAttribute("id", 'r' + i);
                 }
                 cell.addEventListener('click', (function (el, r, c, index) {
                     return function () {
@@ -296,7 +296,7 @@ function initBoard(rows, cols, callback) {
                 for (i = 1; i <= 4; ++i) {
                     piece = cell.appendChild(document.createElement('div'));
                     piece.setAttribute("class", 'yellow piece');
-                    piece.setAttribute("id", 'ypiece' + i);
+                    piece.setAttribute("id", 'y' + i);
                 }
                 cell.addEventListener('click', (function (el, r, c, index) {
                     return function () {
@@ -310,7 +310,7 @@ function initBoard(rows, cols, callback) {
                 for (i = 1; i <= 4; ++i) {
                     piece = cell.appendChild(document.createElement('div'));
                     piece.setAttribute("class", 'green piece');
-                    piece.setAttribute("id", 'gpiece' + i);
+                    piece.setAttribute("id", 'g' + i);
                 }
                 cell.addEventListener('click', (function (el, r, c, index) {
                     return function () {
@@ -324,7 +324,7 @@ function initBoard(rows, cols, callback) {
                 for (var i = 1; i <= 4; ++i) {
                     piece = cell.appendChild(document.createElement('div'));
                     piece.setAttribute("class", 'blue piece');
-                    piece.setAttribute("id", 'bpiece' + i);
+                    piece.setAttribute("id", 'b' + i);
                 }
                 cell.addEventListener('click', (function (el, r, c, index) {
                     return function () {
