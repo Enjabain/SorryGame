@@ -65,6 +65,16 @@ class PlayableSquare implements Serializable {
     public String getPlayerPieceID() {
         return playerPieceID;
     }
+    public List<String> getPlayerIDList(){
+        if (!(type.equals("home") || type.equals("start"))) return null;
+        else {
+            ArrayList<String> idList = new ArrayList<String>();
+            for (Pawn aPawn : pawnList) {
+                idList.add(aPawn.getID());
+            }
+            return idList;
+        }
+    }
     
     public void setToStart(String color){
     	this.type = "start";
@@ -144,7 +154,12 @@ class PlayableSquare implements Serializable {
             this.pawnList.add(0, pawn);
     	}
     }
+    
+    public Pawn getPiece(){
 
+    	return this.pawnList.get(0);
+    }
+    
     public String getPositionID() {
         return positionID;
     }

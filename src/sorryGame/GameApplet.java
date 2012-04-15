@@ -6,10 +6,11 @@ import netscape.javascript.JSException;
 import netscape.javascript.JSObject;
 
 import java.applet.Applet;
+import java.util.List;
 
 public class GameApplet extends Applet {
 
-    private SorryGame game = new SorryGame();
+    public SorryGame game = new SorryGame();
     private JSObject window;
 
 
@@ -36,16 +37,16 @@ public class GameApplet extends Applet {
     public boolean validateMove(String pieceID, String fromPosition, String toPosition) throws Exception {
         if(fromPosition.equals("greenstart") || fromPosition.equals("redstart") || fromPosition.equals("bluestart") || fromPosition.equals("yellowstart"))
             fromPosition = "-1";
-        System.out.printf("pieceID: %s, fromPosition: %d, toPosition: %d; ", pieceID, Integer.parseInt(fromPosition),
+        System.out.printf("Before Validate: pieceID: %s, fromPosition: %d, toPosition: %d%n", pieceID, Integer.parseInt(fromPosition),
                           Integer.parseInt(toPosition));
         boolean isValid = game.validateMove(pieceID, Integer.parseInt(fromPosition), Integer.parseInt(toPosition), 0, 0);
         if (isValid) {
             updatePositions(game.board.getGameArray(), "game");
-//            updatePositions(game.board.getGreenHomeArray(), "g");
-//            updatePositions(game.board.getRedHomeArray(), "r");
-//            updatePositions(game.board.getBlueHomeArray(), "b");
-//            updatePositions(game.board.getYellowHomeArray(), "y");
-//            updatePositions(game.board.getStartArrays(), "start");
+            updatePositions(game.board.getGreenHomeArray(), "g");
+            updatePositions(game.board.getRedHomeArray(), "r");
+            updatePositions(game.board.getBlueHomeArray(), "b");
+            updatePositions(game.board.getYellowHomeArray(), "y");
+            updatePositions(game.board.getStartArrays(), "start");
         }
         return isValid;
     }
@@ -57,13 +58,25 @@ public class GameApplet extends Applet {
     @SuppressWarnings("UnusedDeclaration")
     public boolean updatePositions(PlayableSquare[] array, String filingName) throws Exception {
         boolean updateComplete = false;
+        String pieceID, toIndex;
+        System.out.println("After Validate:");
         for (sorryGame.PlayableSquare square : array) {
             if (square.isOccupied()) {
-                String pieceID = square.getPlayerPieceID();
-                System.out.printf("pieceID: %s; ", pieceID);
-                String toIndex = square.getPositionID();
-                System.out.printf("toIndex: %s", toIndex);
-                window.call("movePiece", new Object[]{pieceID, toIndex});
+                if (square.getType().equals("start") || square.getType().equals("home")) {
+                    List<String> idList = square.getPlayerIDList();
+                    for (String s : idList) {
+                        pieceID = s;
+                        toIndex = square.getPositionID();
+                        System.out.printf("pieceID: %s, finalPosition: %s%n", pieceID, toIndex);
+//                        window.call("movePiece", new Object[]{pieceID, toIndex});
+                    }
+                }
+                else{
+                    pieceID = square.getPlayerPieceID();
+                    toIndex = square.getPositionID();
+                    System.out.printf("pieceID: %s, finalPosition: %s%n", pieceID, toIndex);
+                    //                    window.call("movePiece", new Object[]{pieceID, toIndex});
+                }
             }
         }
 //        Serializer.serializeArray((filingName + "array"), array);
@@ -142,20 +155,6 @@ public class GameApplet extends Applet {
 //    public String getTestString(){
 //        return "The test works";
 //    }
-//    public static void main(String[] args) throws Exception {
-//                GameApplet testApplet = new GameApplet();
-////                for(Integer i =0; i<10; i++){
-////                    System.out.println(testApplet.drawCard());
-////                }
-//                int crd = testApplet.drawCard();
-//                while(crd != 1){
-//                    crd = testApplet.drawCard();
-//                    System.out.println(crd);
-//                }
-//                boolean valid = testApplet.validateMove("b0", "bluestart", "34");
-//                System.out.println(valid);
-//                System.out.println(testApplet.game.currentCard);
-//        //        testApplet.setGame(new SorryGame());
-//            }
+
 //
 }

@@ -8,11 +8,13 @@ public class Pawn {
 	private String id, positionID, color;
 	private int location;
     PlayableSquare[] array;
+    PlayableSquare startSquare;
 	
-	public Pawn(String color, String positionID, int number, int location, PlayableSquare[] array){
+	public Pawn(String color, String positionID, int number, int location, PlayableSquare startSquare, PlayableSquare[] array){
 		this.color = color;
 		this.num = number;
         this.location = location;
+        this.startSquare = startSquare;
         setArray(array);
 		this.setID(number);
 	}
@@ -60,4 +62,9 @@ public class Pawn {
 	public int getLocation(){
 		return this.location;
 	}
+
+    public PlayableSquare getStartSquare() {
+        return startSquare;
+    }
 }
+

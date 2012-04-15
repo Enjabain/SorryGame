@@ -21,7 +21,7 @@ public class HardComputerPlayer extends ComputerPlayer {
 					if(true){
 						if(board.validateMove(card.getRank(), pawn.getID(), 0, 0, 0, 0)){
 							//make the first move that results in a bump
-							board.makeMove(card.getRank(), pawn.getID(), 0, 0, 0, 0);
+							board.makeMove(card.getRank(), pawn.getID(), 0, 0);
 							return;
 						}
 					}
