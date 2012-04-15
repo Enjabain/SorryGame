@@ -276,7 +276,7 @@ function initBoard(rows, cols, callback) {
             }
 
             if (c == 14 && r == 4) {
-                index = 'redstart';
+                index = 'rstart';
                 cell.setAttribute("class", 'red space');
                 cell.setAttribute("id", index);
                 for (i = 0; i < 4; ++i) {
@@ -290,7 +290,7 @@ function initBoard(rows, cols, callback) {
                     }
                 })(cell, r, c, index), false);
             } else if (c == 1 && r == 11) {
-                index = 'yellowstart';
+                index = 'ystart';
                 cell.setAttribute("class", 'yellow space');
                 cell.setAttribute("id", index);
                 for (i = 0; i < 4; ++i) {
@@ -304,7 +304,7 @@ function initBoard(rows, cols, callback) {
                     }
                 })(cell, r, c, index), false);
             } else if (c == 4 && r == 1) {
-                index = 'greenstart';
+                index = 'gstart';
                 cell.setAttribute("class", 'green space');
                 cell.setAttribute("id", index);
                 for (i = 0; i < 4; ++i) {
@@ -318,7 +318,7 @@ function initBoard(rows, cols, callback) {
                     }
                 })(cell, r, c, index), false);
             } else if (c == 11 && r == 14) {
-                index = 'bluestart';
+                index = 'bstart';
                 cell.setAttribute("class", 'blue space');
                 cell.setAttribute("id", index);
                 for (var i = 0; i < 4; ++i) {
