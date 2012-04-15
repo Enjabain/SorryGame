@@ -178,8 +178,8 @@ function initBoard(rows, cols, callback) {
     var iright = 16;
     var itop = 0;
     var ibottom = 45;
-    var ired = 66;
-    var iblue = 72;
+    var ired = 71;
+    var iblue = 77;
     var igreen = 60;
     var iyellow = 78;
     var grid = document.createElement('table');
@@ -230,7 +230,7 @@ function initBoard(rows, cols, callback) {
                 --ileft;
             }
 
-            if (c == 2 && r >= 1 && r <= 5) {
+            if (c == 2 && r >= 1 && r <= 6) {
                 var index = "" + igreen;
                 cell.setAttribute("class", 'green space');
                 cell.setAttribute("id", index);
@@ -241,7 +241,7 @@ function initBoard(rows, cols, callback) {
                 })(cell, r, c, index), false);
                 ++igreen;
             }
-            if (r == 2 && c >= 10 && c <= 14) {
+            if (r == 2 && c >= 9 && c <= 14) {
                 index = "" + ired;
                 cell.setAttribute("class", 'red space');
                 cell.setAttribute("id", index);
@@ -252,7 +252,7 @@ function initBoard(rows, cols, callback) {
                 })(cell, r, c, index), false);
                 --ired;
             }
-            if (c == 13 && r >= 10 && r <= 14) {
+            if (c == 13 && r >= 9 && r <= 14) {
                 index = "" + iblue;
                 cell.setAttribute("class", 'blue space');
                 cell.setAttribute("id", index);
@@ -263,7 +263,7 @@ function initBoard(rows, cols, callback) {
                 })(cell, r, c, index), false);
                 --iblue;
             }
-            if (r == 13 && c >= 1 && c <= 5) {
+            if (r == 13 && c >= 1 && c <= 6) {
                 index = "" + iyellow;
                 cell.setAttribute("class", 'yellow space');
                 cell.setAttribute("id", index);
@@ -279,7 +279,7 @@ function initBoard(rows, cols, callback) {
                 index = 'redstart';
                 cell.setAttribute("class", 'red space');
                 cell.setAttribute("id", index);
-                for (i = 1; i <= 4; ++i) {
+                for (i = 0; i < 4; ++i) {
                     var piece = cell.appendChild(document.createElement('div'));
                     piece.setAttribute("class", 'red piece');
                     piece.setAttribute("id", 'r' + i);
@@ -293,7 +293,7 @@ function initBoard(rows, cols, callback) {
                 index = 'yellowstart';
                 cell.setAttribute("class", 'yellow space');
                 cell.setAttribute("id", index);
-                for (i = 1; i <= 4; ++i) {
+                for (i = 0; i < 4; ++i) {
                     piece = cell.appendChild(document.createElement('div'));
                     piece.setAttribute("class", 'yellow piece');
                     piece.setAttribute("id", 'y' + i);
@@ -307,7 +307,7 @@ function initBoard(rows, cols, callback) {
                 index = 'greenstart';
                 cell.setAttribute("class", 'green space');
                 cell.setAttribute("id", index);
-                for (i = 1; i <= 4; ++i) {
+                for (i = 0; i < 4; ++i) {
                     piece = cell.appendChild(document.createElement('div'));
                     piece.setAttribute("class", 'green piece');
                     piece.setAttribute("id", 'g' + i);
@@ -321,7 +321,7 @@ function initBoard(rows, cols, callback) {
                 index = 'bluestart';
                 cell.setAttribute("class", 'blue space');
                 cell.setAttribute("id", index);
-                for (var i = 1; i <= 4; ++i) {
+                for (var i = 0; i < 4; ++i) {
                     piece = cell.appendChild(document.createElement('div'));
                     piece.setAttribute("class", 'blue piece');
                     piece.setAttribute("id", 'b' + i);
@@ -331,43 +331,44 @@ function initBoard(rows, cols, callback) {
                         callback(el, r, c, index);
                     }
                 })(cell, r, c, index), false);
-            } else if (c == 13 && r == 9) {
-                i = 'bluehome';
-                cell.setAttribute("class", 'blue space home');
-                cell.setAttribute("id", i);
-                cell.addEventListener('click', (function (el, r, c, i) {
-                    return function () {
-                        callback(el, r, c, i);
-                    }
-                })(cell, r, c, i), false);
-            } else if (c == 2 && r == 6) {
-                i = 'greenhome';
-                cell.setAttribute("class", 'green space home');
-                cell.setAttribute("id", i);
-                cell.addEventListener('click', (function (el, r, c, i) {
-                    return function () {
-                        callback(el, r, c, i);
-                    }
-                })(cell, r, c, i), false);
-            } else if (c == 6 && r == 13) {
-                i = 'yellowhome';
-                cell.setAttribute("class", 'yellow space home');
-                cell.setAttribute("id", i);
-                cell.addEventListener('click', (function (el, r, c, i) {
-                    return function () {
-                        callback(el, r, c, i);
-                    }
-                })(cell, r, c, i), false);
-            } else if (c == 9 && r == 2) {
-                i = 'redhome';
-                cell.setAttribute("class", 'red space home');
-                cell.setAttribute("id", i);
-                cell.addEventListener('click', (function (el, r, c, i) {
-                    return function () {
-                        callback(el, r, c, i);
-                    }
-                })(cell, r, c, i), false);
             }
+//            else if (c == 13 && r == 9) {
+//                i = 'bluehome';
+//                cell.setAttribute("class", 'blue space home');
+//                cell.setAttribute("id", i);
+//                cell.addEventListener('click', (function (el, r, c, i) {
+//                    return function () {
+//                        callback(el, r, c, i);
+//                    }
+//                })(cell, r, c, i), false);
+//            } else if (c == 2 && r == 6) {
+//                i = 'greenhome';
+//                cell.setAttribute("class", 'green space home');
+//                cell.setAttribute("id", i);
+//                cell.addEventListener('click', (function (el, r, c, i) {
+//                    return function () {
+//                        callback(el, r, c, i);
+//                    }
+//                })(cell, r, c, i), false);
+//            } else if (c == 6 && r == 13) {
+//                i = 'yellowhome';
+//                cell.setAttribute("class", 'yellow space home');
+//                cell.setAttribute("id", i);
+//                cell.addEventListener('click', (function (el, r, c, i) {
+//                    return function () {
+//                        callback(el, r, c, i);
+//                    }
+//                })(cell, r, c, i), false);
+//            } else if (c == 9 && r == 2) {
+//                i = 'redhome';
+//                cell.setAttribute("class", 'red space home');
+//                cell.setAttribute("id", i);
+//                cell.addEventListener('click', (function (el, r, c, i) {
+//                    return function () {
+//                        callback(el, r, c, i);
+//                    }
+//                })(cell, r, c, i), false);
+//            }
             if (c == 15 && ((r >= 9 && r <= 13) || (r >= 1 && r <= 4))) {
                 cell.setAttribute("class", 'redslide space');
             }
