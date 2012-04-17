@@ -10,9 +10,6 @@
 
 <link rel="stylesheet" href="sorry.css" type="text/css" media="screen"/>
 
-<!-- <script src="ajaxHelper.js" type="text/javascript"></script> -->
-
-
 <script>
 
 window.n = 0;
@@ -42,24 +39,12 @@ function graphIt() {
 
         if (document.getElementById(index1).hasChildNodes() && index2 != 0) {
             validateMove(index1, index2);
-            //            if (document.getElementById('movePieces').checked) {
-            //                movePiece(index1, index2);
-            //            } else if (document.getElementById('bumpPieces').checked) {
-            //                bumpPiece(index1, index2);
-            //            } else if (document.getElementById('swapPieces').checked) {
-            //                swapPiece(index1, index2);
-            //            } else if (document.getElementById('slidePieces4').checked) {
-            //                slidePiece4(index1, index2);
-            //            } else if (document.getElementById('slidePieces5').checked) {
-            //                slidePiece5(index1, index2);
-            //            }
         }
 
         if (!document.getElementById(index1).hasChildNodes()) {
             window.n = 0;
             window.index1 = 0;
             window.index2 = 0;
-            //feedbackdisplay.innerHTML = index1 + ' ' + index2;
         }
 
     });
@@ -71,9 +56,6 @@ function graphIt() {
 function validateMove(index1, index2) {
     var pieceID = document.getElementById(index1).firstChild.getAttribute("id");
     var valid = (document.getElementById('sorryApplet')).validateMove(pieceID, index1, index2);
-//    if (valid) {
-//        var itWorked = document.getElementById('sorryApplet').updatePositions(pieceID, index2);
-//    }
 }
 
 function movePiece(index1, index2) {
@@ -122,8 +104,6 @@ function slidePiece5(index1, index2) {
     bumper(index2);
     var moveTo = document.getElementById(index2);
     moveTo.insertBefore(piece1, moveTo.firstChild);
-
-
 }
 function bumper(bump) {
     var bumped = document.getElementById(bump);
@@ -131,13 +111,13 @@ function bumper(bump) {
         var piece2 = document.getElementById(bump).firstChild;
         var piece2ID = piece2.getAttribute("id");
         if (piece2ID.indexOf("r") != -1) {
-            var start = document.getElementById("redstart");
+            var start = document.getElementById("rstart");
         } else if (piece2ID.indexOf("b") != -1) {
-            start = document.getElementById("bluestart");
+            start = document.getElementById("bstart");
         } else if (piece2ID.indexOf("y") != -1) {
-            start = document.getElementById("yellowstart");
+            start = document.getElementById("ystart");
         } else if (piece2ID.indexOf("g") != -1) {
-            start = document.getElementById("greenstart");
+            start = document.getElementById("gstart");
         }
         start.insertBefore(piece2, start.firstChild);
     }
@@ -145,7 +125,6 @@ function bumper(bump) {
 
 
 function drawCard() {
-//    var card = Math.floor(Math.random() * 12) + 1;
     var discardpile = document.getElementById('discard');
     var card = document.getElementById('sorryApplet').drawCard();
     if (card == 1) {
@@ -178,8 +157,8 @@ function initBoard(rows, cols, callback) {
     var iright = 16;
     var itop = 0;
     var ibottom = 45;
-    var ired = 71;
-    var iblue = 77;
+    var ired = 70;
+    var iblue = 76;
     var igreen = 60;
     var iyellow = 78;
     var grid = document.createElement('table');
@@ -230,7 +209,7 @@ function initBoard(rows, cols, callback) {
                 --ileft;
             }
 
-            if (c == 2 && r >= 1 && r <= 6) {
+            if (c == 2 && r >= 1 && r <= 5) {
                 var index = "" + igreen;
                 cell.setAttribute("class", 'green space');
                 cell.setAttribute("id", index);
@@ -241,7 +220,7 @@ function initBoard(rows, cols, callback) {
                 })(cell, r, c, index), false);
                 ++igreen;
             }
-            if (r == 2 && c >= 9 && c <= 14) {
+            if (r == 2 && c >= 10 && c <= 14) {
                 index = "" + ired;
                 cell.setAttribute("class", 'red space');
                 cell.setAttribute("id", index);
@@ -252,7 +231,7 @@ function initBoard(rows, cols, callback) {
                 })(cell, r, c, index), false);
                 --ired;
             }
-            if (c == 13 && r >= 9 && r <= 14) {
+            if (c == 13 && r >= 10 && r <= 14) {
                 index = "" + iblue;
                 cell.setAttribute("class", 'blue space');
                 cell.setAttribute("id", index);
@@ -263,7 +242,7 @@ function initBoard(rows, cols, callback) {
                 })(cell, r, c, index), false);
                 --iblue;
             }
-            if (r == 13 && c >= 1 && c <= 6) {
+            if (r == 13 && c >= 1 && c <= 5) {
                 index = "" + iyellow;
                 cell.setAttribute("class", 'yellow space');
                 cell.setAttribute("id", index);
@@ -278,7 +257,7 @@ function initBoard(rows, cols, callback) {
             if (c == 14 && r == 4) {
                 index = 'rstart';
                 cell.setAttribute("class", 'red space');
-                cell.setAttribute("id", index);
+                cell = document.getElementById('rstart');
                 for (i = 0; i < 4; ++i) {
                     var piece = cell.appendChild(document.createElement('div'));
                     piece.setAttribute("class", 'red piece');
@@ -292,7 +271,7 @@ function initBoard(rows, cols, callback) {
             } else if (c == 1 && r == 11) {
                 index = 'ystart';
                 cell.setAttribute("class", 'yellow space');
-                cell.setAttribute("id", index);
+                cell = document.getElementById('ystart');
                 for (i = 0; i < 4; ++i) {
                     piece = cell.appendChild(document.createElement('div'));
                     piece.setAttribute("class", 'yellow piece');
@@ -306,7 +285,7 @@ function initBoard(rows, cols, callback) {
             } else if (c == 4 && r == 1) {
                 index = 'gstart';
                 cell.setAttribute("class", 'green space');
-                cell.setAttribute("id", index);
+                cell = document.getElementById('gstart');
                 for (i = 0; i < 4; ++i) {
                     piece = cell.appendChild(document.createElement('div'));
                     piece.setAttribute("class", 'green piece');
@@ -320,7 +299,7 @@ function initBoard(rows, cols, callback) {
             } else if (c == 11 && r == 14) {
                 index = 'bstart';
                 cell.setAttribute("class", 'blue space');
-                cell.setAttribute("id", index);
+                cell = document.getElementById('bstart');
                 for (var i = 0; i < 4; ++i) {
                     piece = cell.appendChild(document.createElement('div'));
                     piece.setAttribute("class", 'blue piece');
@@ -331,44 +310,43 @@ function initBoard(rows, cols, callback) {
                         callback(el, r, c, index);
                     }
                 })(cell, r, c, index), false);
+            } else if (c == 13 && r == 9) {
+                i = 'bluehome';
+                cell.setAttribute("class", 'blue space');
+                cell = document.getElementById('bluehome');
+                cell.addEventListener('click', (function (el, r, c, i) {
+                    return function () {
+                        callback(el, r, c, i);
+                    }
+                })(cell, r, c, i), false);
+            } else if (c == 2 && r == 6) {
+                i = 'greenhome';
+                cell.setAttribute("class", 'green space');
+                cell = document.getElementById('greenhome');
+                cell.addEventListener('click', (function (el, r, c, i) {
+                    return function () {
+                        callback(el, r, c, i);
+                    }
+                })(cell, r, c, i), false);
+            } else if (c == 6 && r == 13) {
+                i = 'yellowhome';
+                cell.setAttribute("class", 'yellow space');
+                cell = document.getElementById('yellowhome');
+                cell.addEventListener('click', (function (el, r, c, i) {
+                    return function () {
+                        callback(el, r, c, i);
+                    }
+                })(cell, r, c, i), false);
+            } else if (c == 9 && r == 2) {
+                i = 'redhome';
+                cell.setAttribute("class", 'red space');
+                cell = document.getElementById('redhome');
+                cell.addEventListener('click', (function (el, r, c, i) {
+                    return function () {
+                        callback(el, r, c, i);
+                    }
+                })(cell, r, c, i), false);
             }
-//            else if (c == 13 && r == 9) {
-//                i = 'bluehome';
-//                cell.setAttribute("class", 'blue space home');
-//                cell.setAttribute("id", i);
-//                cell.addEventListener('click', (function (el, r, c, i) {
-//                    return function () {
-//                        callback(el, r, c, i);
-//                    }
-//                })(cell, r, c, i), false);
-//            } else if (c == 2 && r == 6) {
-//                i = 'greenhome';
-//                cell.setAttribute("class", 'green space home');
-//                cell.setAttribute("id", i);
-//                cell.addEventListener('click', (function (el, r, c, i) {
-//                    return function () {
-//                        callback(el, r, c, i);
-//                    }
-//                })(cell, r, c, i), false);
-//            } else if (c == 6 && r == 13) {
-//                i = 'yellowhome';
-//                cell.setAttribute("class", 'yellow space home');
-//                cell.setAttribute("id", i);
-//                cell.addEventListener('click', (function (el, r, c, i) {
-//                    return function () {
-//                        callback(el, r, c, i);
-//                    }
-//                })(cell, r, c, i), false);
-//            } else if (c == 9 && r == 2) {
-//                i = 'redhome';
-//                cell.setAttribute("class", 'red space home');
-//                cell.setAttribute("id", i);
-//                cell.addEventListener('click', (function (el, r, c, i) {
-//                    return function () {
-//                        callback(el, r, c, i);
-//                    }
-//                })(cell, r, c, i), false);
-//            }
             if (c == 15 && ((r >= 9 && r <= 13) || (r >= 1 && r <= 4))) {
                 cell.setAttribute("class", 'redslide space');
             }
@@ -400,25 +378,17 @@ function initBoard(rows, cols, callback) {
     deployJava.runApplet(attributes, parameters, version);
 </script>
 
-<!--<object id="sorryApplet" type="application/x-java-applet" width="1" height="1">-->
-    <!--<param name="code" value="sorryGame.GameApplet" />-->
-    <!--<param name="archive" value="sorryGame.jar" />-->
-    <!--<param name="mayscript" value="true" />-->
-    <!--<param name="id" value="sorryApplet" />-->
-<!--</object>-->
-
 <div id="wrapper">
     <div id="board">
-<!--        <div id="debug">
-            <label for="movePieces">Move</label><input type="radio" name="debug" id="movePieces" value="move"/><br/>
-            <label for="bumpPieces">Bump</label><input type="radio" name="debug" id="bumpPieces" value="bump"/><br/>
-            <label for="swapPieces">Swap</label><input type="radio" name="debug" id="swapPieces" value="swap"/><br/>
-            <label for="slidePieces4">Slide4</label><input type="radio" name="debug" id="slidePieces4"
-                                                           value="slide1"/><br/>
-            <label for="slidePieces5">Slide5</label><input type="radio" name="debug" id="slidePieces5"
-                                                           value="slide2"/><br/>
+        <div class="starthome green" id="gstart"></div>
+        <div class="starthome red" id="rstart"></div>
+        <div class="starthome blue" id="bstart"></div>
+        <div class="starthome yellow" id="ystart"></div>
+        <div class="starthome green" id="greenhome"></div>
+        <div class="starthome red" id="redhome"></div>
+        <div class="starthome blue" id="bluehome"></div>
+        <div class="starthome yellow" id="yellowhome"></div>
 
-        </div>-->
         <div id="feedback">
             Last Move:<br/><br/>
             Current Player:<br/><br/>
@@ -428,7 +398,7 @@ function initBoard(rows, cols, callback) {
         <div id="deck" onclick="drawCard()">
             <div style="margin-top:100px; margin-left:30px; -moz-transform:rotate(45deg);">Sorry!</div>
         </div>
-
+        <div id='greenstartnew'></div>
         <div id="discard"></div>
     </div>
 </div>
