@@ -37,6 +37,10 @@ public class GameApplet extends Applet {
     public boolean validateMove(String pieceID, String fromPosition, String toPosition) throws Exception {
         if(fromPosition.equals("gstart") || fromPosition.equals("rstart") || fromPosition.equals("bstart") || fromPosition.equals("ystart"))
             fromPosition = "-1";
+        else if (toPosition.equals("greenhome")) toPosition = "65";
+        else if (toPosition.equals("redhome")) toPosition = "71";
+        else if (toPosition.equals("bluehome")) toPosition = "77";
+        else if (toPosition.equals("yellowhome")) toPosition = "83";
         System.out.printf("Before Validate: pieceID: %s, fromPosition: %d, toPosition: %d%n", pieceID, Integer.parseInt(fromPosition),
                           Integer.parseInt(toPosition));
         boolean isValid = game.validateMove(pieceID, Integer.parseInt(fromPosition), Integer.parseInt(toPosition), 0, 0);

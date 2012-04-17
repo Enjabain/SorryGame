@@ -107,17 +107,26 @@ public class GameBoard {
         blueSafetyIndex = 72;
         yellowSafetyIndex = 78;
         
-        for (int i=0; i<6; i++){
-        	greenHomeArray[i] = new PlayableSquare("g" + Integer.toString(i));
+        for (int i=0; i<5; i++){
+        	greenHomeArray[i] = new PlayableSquare(Integer.toString(i+greenSafetyIndex));
         	greenHomeArray[i].setToSafetyZone("green");
-        	redHomeArray[i] = new PlayableSquare("r" + Integer.toString(i));
+        	redHomeArray[i] = new PlayableSquare(Integer.toString(i+redSafetyIndex));
         	redHomeArray[i].setToSafetyZone("red");
-        	blueHomeArray[i] = new PlayableSquare("b" + Integer.toString(i));
+        	blueHomeArray[i] = new PlayableSquare(Integer.toString(i+blueSafetyIndex));
         	blueHomeArray[i].setToSafetyZone("blue");
-        	yellowHomeArray[i] = new PlayableSquare("y" + Integer.toString(i));
+        	yellowHomeArray[i] = new PlayableSquare(Integer.toString(i+yellowSafetyIndex));
         	yellowHomeArray[i].setToSafetyZone("yellow");
         }
-        
+        greenHomeArray[5] = new PlayableSquare("greenhome");
+        greenHomeArray[5].setToSafetyZone("green");
+        redHomeArray[5] = new PlayableSquare("redhome");
+        redHomeArray[5].setToSafetyZone("red");
+        blueHomeArray[5] = new PlayableSquare("bluehome");
+        blueHomeArray[5].setToSafetyZone("blue");
+        yellowHomeArray[5] = new PlayableSquare("yellowhome");
+        yellowHomeArray[5].setToSafetyZone("yellow");
+
+
         greenHomeArray[5].setToHome("green");
     	redHomeArray[5].setToHome("red");
     	blueHomeArray[5].setToHome("blue");
@@ -350,7 +359,7 @@ public class GameBoard {
     		gameArray[initialPosition].removePiece(currentPiece);
     	}
     	else {
-    		currentPiece = currentHomeArray[initialPosition].getPiece();
+    		currentPiece = currentHomeArray[initialPosition-safetyZoneIndex].getPiece();
     		currentHomeArray[initialPosition-safetyZoneIndex].removePiece(currentPiece);
     	}
     	/////////////////////////////////////////////////ß//////////////////////
