@@ -45,12 +45,12 @@ public class GameApplet extends Applet {
                           Integer.parseInt(toPosition));
         boolean isValid = game.validateMove(pieceID, Integer.parseInt(fromPosition), Integer.parseInt(toPosition), 0, 0);
         if (isValid) {
+            updatePositions(game.board.getStartArrays(), "start");
             updatePositions(game.board.getGameArray(), "game");
             updatePositions(game.board.getGreenHomeArray(), "g");
             updatePositions(game.board.getRedHomeArray(), "r");
             updatePositions(game.board.getBlueHomeArray(), "b");
             updatePositions(game.board.getYellowHomeArray(), "y");
-            updatePositions(game.board.getStartArrays(), "start");
         }
         return isValid;
     }

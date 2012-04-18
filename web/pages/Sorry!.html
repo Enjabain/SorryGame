@@ -13,17 +13,17 @@
 <script>
 
 window.n = 0;
-window.index1 = 0;
-window.index2 = 0;
+window.index1 = -1;
+window.index2 = -1;
 
 function graphIt() {
 
     var grid = initBoard(16, 16, function (el, row, col, i) {
 
-        if (window.index1 != 0 && window.index2 != 0) {
+        if (window.index1 != -1 && window.index2 != -1) {
             window.n = 0;
-            window.index1 = 0;
-            window.index2 = 0;
+            window.index1 = -1;
+            window.index2 = -1;
         }
 
         if (window.n == 0) {
@@ -37,14 +37,14 @@ function graphIt() {
         feedbackdisplay.innerHTML = index1 + ' ' + index2;
 
 
-        if (document.getElementById(index1).hasChildNodes() && index2 != 0) {
+        if (document.getElementById(index1).hasChildNodes() && index2 != -1) {
             validateMove(index1, index2);
         }
 
         if (!document.getElementById(index1).hasChildNodes()) {
             window.n = 0;
-            window.index1 = 0;
-            window.index2 = 0;
+            window.index1 = -1;
+            window.index2 = -1;
         }
 
     });
