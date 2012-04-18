@@ -376,7 +376,7 @@ public class GameBoard {
                 else bump(finalPosition);
             }
             
-            if (gameArray[finalPosition].getType() == "sliderStart"){
+            if (gameArray[finalPosition].getType() == "sliderStart" && gameArray[finalPosition].getColor().toCharArray()[0] != color){
             	while (gameArray[finalPosition].getType() != "sliderEnd"){
             		if (gameArray[finalPosition].isOccupied())
             			bump(finalPosition);
