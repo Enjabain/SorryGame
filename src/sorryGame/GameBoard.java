@@ -249,11 +249,10 @@ public class GameBoard {
 	    	return false;
 	    else if (finalPosition >= 60 && currentHomeArray[finalPosition - safetyZoneIndex].isOccupied() && currentHomeArray[finalPosition - safetyZoneIndex].getPlayerPieceID().toCharArray()[0] == color)
 	    	return false;
-	    
-	    if (finalPosition2 < 60 && gameArray[finalPosition2].isOccupied() && gameArray[finalPosition2].getPlayerPieceID().toCharArray()[0] == color)
-	    	return false;
-	    else if (finalPosition2 >= 60 && currentHomeArray[finalPosition2 - safetyZoneIndex].isOccupied() && currentHomeArray[finalPosition2 - safetyZoneIndex].getPlayerPieceID().toCharArray()[0] == color)
-	    	return false;	    
+//	    if (finalPosition2 < 60 && gameArray[finalPosition2].isOccupied() && gameArray[finalPosition2].getPlayerPieceID().toCharArray()[0] == color)
+//	    	return false;
+//	    else if (finalPosition2 >= 60 && currentHomeArray[finalPosition2 - safetyZoneIndex].isOccupied() && currentHomeArray[finalPosition2 - safetyZoneIndex].getPlayerPieceID().toCharArray()[0] == color)
+//	    	return false;
     	
     	switch (card){
             case 1: case 2:
