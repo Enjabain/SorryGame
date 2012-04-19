@@ -24,9 +24,9 @@
 
 }
 .piece {
-    width:43px;
-    height:43px;
-    border-radius: 21.5px;
+    width:44px;
+    height:44px;
+    border-radius: 22px;
     border:1px solid #000;
     margin:1px;
     float:right;

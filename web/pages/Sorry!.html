@@ -16,35 +16,48 @@ window.n = 0;
 window.index1 = -1;
 window.index2 = -1;
 
+
 function graphIt() {
 
     var grid = initBoard(16, 16, function (el, row, col, i) {
 
         if (window.index1 != -1 && window.index2 != -1) {
             window.n = 0;
+	    document.getElementById(index1).setAttribute('style','border: 1px solid black;');
+	    document.getElementById(index2).setAttribute('style','border: 1px solid black;');
             window.index1 = -1;
             window.index2 = -1;
+
         }
 
         if (window.n == 0) {
             window.index1 = i;
             ++window.n;
+	    document.getElementById(index1).setAttribute('style','border: 1px solid gold;');
         } else if (window.n == 1) {
             window.index2 = i;
             ++window.n;
+	    document.getElementById(index2).setAttribute('style','border: 1px solid gold;');
         }
         var feedbackdisplay = document.getElementById('feedbackdebug');
         feedbackdisplay.innerHTML = index1 + ' ' + index2;
 
 
         if (document.getElementById(index1).hasChildNodes() && index2 != -1) {
+	    document.getElementById(index1).setAttribute('style','border: 1px solid black;');
+	    document.getElementById(index2).setAttribute('style','border: 1px solid black;');
             validateMove(index1, index2);
+
+
         }
 
         if (!document.getElementById(index1).hasChildNodes()) {
             window.n = 0;
+	    document.getElementById(index1).setAttribute('style','border: 1px solid black;');
+	    document.getElementById(index2).setAttribute('style','border: 1px solid black;');
             window.index1 = -1;
             window.index2 = -1;
+
         }
 
     });
@@ -390,9 +403,10 @@ function initBoard(rows, cols, callback) {
         <div class="starthome yellow" id="yellowhome"></div>
 
         <div id="feedback">
-            Last Move:<br/><br/>
-            Current Player:<br/><br/>
-            Draw a card to continue.
+            <div id="lastMove">Last Move:</div>
+            <div id="currentPlayer">Current Player:</div>
+            <div id="status">Draw a card to continue.</div>
+
         </div>
         <div id="feedbackdebug"></div>
         <div id="deck" onclick="drawCard()">
