@@ -1,3 +1,5 @@
+* { margin: 0; padding: 0px; }
+
 #wrapper {margin:0 auto; width: 1000px;}
 #board {margin:0 auto; width:1000px; position:absolute;}
 
@@ -71,7 +73,7 @@
 }
 #redhome {
     position:absolute;
-    left:492px;
+    left:482px;
     top:80px;
 
 }

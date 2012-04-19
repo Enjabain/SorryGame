@@ -35,7 +35,7 @@ public class GameApplet extends Applet {
      */
     @SuppressWarnings("UnusedDeclaration")
     public boolean validateMove(String pieceID, String fromPosition, String toPosition) throws Exception {
-        if(fromPosition.equals("greenstart") || fromPosition.equals("redstart") || fromPosition.equals("bluestart") || fromPosition.equals("yellowstart"))
+        if(fromPosition.equals("gstart") || fromPosition.equals("rstart") || fromPosition.equals("bstart") || fromPosition.equals("ystart"))
             fromPosition = "-1";
         System.out.printf("Before Validate: pieceID: %s, fromPosition: %d, toPosition: %d%n", pieceID, Integer.parseInt(fromPosition),
                           Integer.parseInt(toPosition));
@@ -68,14 +68,14 @@ public class GameApplet extends Applet {
                         pieceID = s;
                         toIndex = square.getPositionID();
                         System.out.printf("pieceID: %s, finalPosition: %s%n", pieceID, toIndex);
-//                        window.call("movePiece", new Object[]{pieceID, toIndex});
+                        window.call("movePiece", new Object[]{pieceID, toIndex});
                     }
                 }
                 else{
                     pieceID = square.getPlayerPieceID();
                     toIndex = square.getPositionID();
                     System.out.printf("pieceID: %s, finalPosition: %s%n", pieceID, toIndex);
-                    //                    window.call("movePiece", new Object[]{pieceID, toIndex});
+                    window.call("movePiece", new Object[]{pieceID, toIndex});
                 }
             }
         }
@@ -132,29 +132,4 @@ public class GameApplet extends Applet {
 //            }
 //    }
 // GameApplet
-
-/**
- * Test functions for analyzing communication between javascript, applet and Java class back-end.
- */
-//    public void updatePositions(String pieceID, String toPosition){
-//         window.call("movePiece", new Object[]{pieceID, toPosition});
-//        Integer[] gameArray = {10,35,20,53};
-//        for (int i = 1; i <= 4; i++) {
-//            String str = Integer.toString(gameArray[i-1]);
-//            window.call("movePiece", new Object[]{("bpiece" + i), str});
-//            str = Integer.toString((gameArray[i-1] + 5));
-//            window.call("movePiece", new Object[]{("rpiece" + i), str});
-//        }
-//    }
-//
-//
-//    public SorryGame getGame() {
-//        return game;
-//    }
-//
-//    public String getTestString(){
-//        return "The test works";
-//    }
-
-//
 }
