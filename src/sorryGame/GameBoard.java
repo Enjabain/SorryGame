@@ -14,7 +14,7 @@ import java.util.TreeMap;
 
 
 public class GameBoard {
-	
+
 	private PlayableSquare[] gameArray, redHomeArray, greenHomeArray, blueHomeArray, yellowHomeArray, currentHomeArray;
 	private PlayableSquare greenStart, redStart, blueStart, yellowStart, currentStart;
 	PlayableSquare[] startArrays;
@@ -23,13 +23,13 @@ public class GameBoard {
 	private int greenHomePosition, redHomePosition, blueHomePosition, yellowHomePosition;
 	private int greenSafetyIndex, redSafetyIndex, blueSafetyIndex, yellowSafetyIndex;
 	int startPosition, homePosition, safetyZoneIndex;	
-	
+
 	private ArrayList<Player> players = new ArrayList<Player>();
-	
+
 	public GameBoard(){
 		initializeBoard();
 	}
-	
+
 	public void addPlayer(Player p){
 		players.add(p);
 	}
@@ -43,11 +43,11 @@ public class GameBoard {
 //            position.addPawn(pawn);
 //        }
 //    }
-	
+
 	public ArrayList<Player> getPlayers(){
 		return players;
 	}
-	
+
 	public void print(){
 		for (int i=0; i<this.gameArray.length; i++){
 			System.out.println("Square " + i + " is a " + gameArray[i].getType() + " square with color set to: " + gameArray[i].getColor());
@@ -55,7 +55,7 @@ public class GameBoard {
 				System.out.println(" - Occupied by: " + gameArray[i].getPlayerPieceID());
 		}
 	}
-	
+
 	public Map<String, Pawn[]> getPawns(){
 		Map<String, Pawn[]> pawns = new TreeMap<String, Pawn[]>();
 		pawns.put("green", greenPawn);
@@ -64,14 +64,14 @@ public class GameBoard {
 		pawns.put("yellow", yellowPawn);
 		return pawns;
 	}
-	
+
 	/**
 	 * Initialises the board array, setting all of the sliders and their location, storing the indices of the different
 	 * locations of the 'special' squares: the home, the start, and the safety zone squares. It also sets up all of the
 	 * different pieces (or pawns).
 	 */
 	public void initializeBoard(){
-		
+
 		gameArray = new PlayableSquare[60];
 		for (int i=0; i<60; i++)
 			gameArray[i] = new PlayableSquare(Integer.toString(i));
@@ -107,17 +107,26 @@ public class GameBoard {
         blueSafetyIndex = 72;
         yellowSafetyIndex = 78;
         
-        for (int i=0; i<6; i++){
-        	greenHomeArray[i] = new PlayableSquare("g" + Integer.toString(i));
+        for (int i=0; i<5; i++){
+        	greenHomeArray[i] = new PlayableSquare(Integer.toString(i+greenSafetyIndex));
         	greenHomeArray[i].setToSafetyZone("green");
-        	redHomeArray[i] = new PlayableSquare("r" + Integer.toString(i));
+        	redHomeArray[i] = new PlayableSquare(Integer.toString(i+redSafetyIndex));
         	redHomeArray[i].setToSafetyZone("red");
-        	blueHomeArray[i] = new PlayableSquare("b" + Integer.toString(i));
+        	blueHomeArray[i] = new PlayableSquare(Integer.toString(i+blueSafetyIndex));
         	blueHomeArray[i].setToSafetyZone("blue");
-        	yellowHomeArray[i] = new PlayableSquare("y" + Integer.toString(i));
+        	yellowHomeArray[i] = new PlayableSquare(Integer.toString(i+yellowSafetyIndex));
         	yellowHomeArray[i].setToSafetyZone("yellow");
         }
-        
+        greenHomeArray[5] = new PlayableSquare("greenhome");
+        greenHomeArray[5].setToSafetyZone("green");
+        redHomeArray[5] = new PlayableSquare("redhome");
+        redHomeArray[5].setToSafetyZone("red");
+        blueHomeArray[5] = new PlayableSquare("bluehome");
+        blueHomeArray[5].setToSafetyZone("blue");
+        yellowHomeArray[5] = new PlayableSquare("yellowhome");
+        yellowHomeArray[5].setToSafetyZone("yellow");
+
+
         greenHomeArray[5].setToHome("green");
     	redHomeArray[5].setToHome("red");
     	blueHomeArray[5].setToHome("blue");
@@ -165,7 +174,7 @@ public class GameBoard {
 //    	gameArray[26].setPlayerPieceID("g2");
     	
 	}
-	
+
     public void setToSlider(PlayableSquare[] gameArray, String color, int sliderSize, int start){
     	gameArray[start].setToSliderStart(color);
     	
@@ -236,7 +245,16 @@ public class GameBoard {
     	char color = pieceID.toCharArray()[0];
     	this.setCurrentPawnInfo(pieceID);
     	
-	    switch (card){
+	    if (finalPosition < 60 && gameArray[finalPosition].isOccupied() && gameArray[finalPosition].getPlayerPieceID().toCharArray()[0] == color)
+	    	return false;
+	    else if (finalPosition >= 60 && currentHomeArray[finalPosition - safetyZoneIndex].isOccupied() && currentHomeArray[finalPosition - safetyZoneIndex].getPlayerPieceID().toCharArray()[0] == color)
+	    	return false;
+//	    if (finalPosition2 < 60 && gameArray[finalPosition2].isOccupied() && gameArray[finalPosition2].getPlayerPieceID().toCharArray()[0] == color)
+//	    	return false;
+//	    else if (finalPosition2 >= 60 && currentHomeArray[finalPosition2 - safetyZoneIndex].isOccupied() && currentHomeArray[finalPosition2 - safetyZoneIndex].getPlayerPieceID().toCharArray()[0] == color)
+//	    	return false;
+    	
+    	switch (card){
             case 1: case 2:
         		if (initialPosition2 != 0 || finalPosition2 != 0)
         			return false;
@@ -335,7 +353,7 @@ public class GameBoard {
 	 * @param finalPosition: the position to which the piece/pawn should go.
      */
     public void makeMove(int card, String pieceID, int initialPosition, int finalPosition){
-		
+
 		char color = pieceID.toCharArray()[0];
     	this.setCurrentPawnInfo(pieceID);
     	
@@ -350,10 +368,10 @@ public class GameBoard {
     		gameArray[initialPosition].removePiece(currentPiece);
     	}
     	else {
-    		currentPiece = currentHomeArray[initialPosition].getPiece();
+    		currentPiece = currentHomeArray[initialPosition-safetyZoneIndex].getPiece();
     		currentHomeArray[initialPosition-safetyZoneIndex].removePiece(currentPiece);
     	}
-    	/////////////////////////////////////////////////ß//////////////////////
+    	////////////////////////////////////////////////////////////////////////
     	if (finalPosition >= 0 && finalPosition <= 59){
             if(gameArray[finalPosition].isOccupied()){
                 if(card == 11){
@@ -366,6 +384,17 @@ public class GameBoard {
                 }
                 else bump(finalPosition);
             }
+            
+            if (gameArray[finalPosition].getType() == "sliderStart" && gameArray[finalPosition].getColor().toCharArray()[0] != color){
+            	while (gameArray[finalPosition].getType() != "sliderEnd"){
+            		if (gameArray[finalPosition].isOccupied())
+            			bump(finalPosition);
+            		finalPosition++;
+            	}
+            	if (gameArray[finalPosition].isOccupied())
+        			bump(finalPosition);
+            }
+            
     		gameArray[finalPosition].putPiece(currentPiece);
     	}
     	else if (finalPosition > 59){

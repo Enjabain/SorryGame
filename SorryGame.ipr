@@ -67,7 +67,8 @@
   </component>
   <component name="ExportToHTMLSettings">
     <option name="printScope" value="4" />
-    <option name="OUTPUT_DIRECTORY" value="$USER_HOME$/Sites/Sorry" />
+    <option name="OPEN_IN_BROWSER" value="true" />
+    <option name="OUTPUT_DIRECTORY" value="$USER_HOME$/Sites/Coverage Report" />
   </component>
   <component name="IdProvider" IDEtalkID="F8BD831F6BE1DDEF83BAA553CB6194A8" />
   <component name="InspectionProjectProfileManager">
