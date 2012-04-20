@@ -23,8 +23,8 @@ function graphIt() {
 
         if (window.index1 != -1 && window.index2 != -1) {
             window.n = 0;
-	    document.getElementById(index1).setAttribute('style','border: 1px solid black;');
-	    document.getElementById(index2).setAttribute('style','border: 1px solid black;');
+	    document.getElementById(index1).setAttribute('style','border: 1px solid transparent;');
+	    document.getElementById(index2).setAttribute('style','border: 1px solid transparent;');
             window.index1 = -1;
             window.index2 = -1;
 
@@ -44,8 +44,8 @@ function graphIt() {
 
 
         if (document.getElementById(index1).hasChildNodes() && index2 != -1) {
-	    document.getElementById(index1).setAttribute('style','border: 1px solid black;');
-	    document.getElementById(index2).setAttribute('style','border: 1px solid black;');
+	    document.getElementById(index1).setAttribute('style','border: 1px solid transparent;');
+	    document.getElementById(index2).setAttribute('style','border: 1px solid transparent;');
             validateMove(index1, index2);
 
 
@@ -53,8 +53,7 @@ function graphIt() {
 
         if (!document.getElementById(index1).hasChildNodes()) {
             window.n = 0;
-	    document.getElementById(index1).setAttribute('style','border: 1px solid black;');
-	    document.getElementById(index2).setAttribute('style','border: 1px solid black;');
+	    document.getElementById(index1).setAttribute('style','border: 1px solid transparent;');
             window.index1 = -1;
             window.index2 = -1;
 
@@ -401,19 +400,18 @@ function initBoard(rows, cols, callback) {
         <div class="starthome red" id="redhome"></div>
         <div class="starthome blue" id="bluehome"></div>
         <div class="starthome yellow" id="yellowhome"></div>
-
+	<div id="middle">
         <div id="feedback">
             <div id="lastMove">Last Move:</div>
             <div id="currentPlayer">Current Player:</div>
             <div id="status">Draw a card to continue.</div>
-
+            <div id="feedbackdebug"></div>
         </div>
-        <div id="feedbackdebug"></div>
         <div id="deck" onclick="drawCard()">
             <div style="margin-top:100px; margin-left:30px; -moz-transform:rotate(45deg);">Sorry!</div>
         </div>
-        <div id='greenstartnew'></div>
         <div id="discard"></div>
+	</div>
     </div>
 </div>
 </body>
