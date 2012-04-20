@@ -401,6 +401,29 @@ public class GameBoard {
     		currentHomeArray[finalPosition-safetyZoneIndex].putPiece(currentPiece);
     	}
     }
+    
+    public boolean willBumpPiece(int card, int initialPosition){
+    	switch (card){
+        case 1: case 2: case 3: case 5: case 8: case 10: case 11: case 12:
+        	return gameArray[initialPosition+card].isOccupied();
+        case 4:
+        	return gameArray[(initialPosition-4+60)%60].isOccupied();
+        case 7:
+        	if(gameArray[initialPosition+7].isOccupied()){
+        		return true;
+        	}else{
+        		for(int i = 1; i < 7; i++){
+        			if(gameArray[initialPosition+i].isOccupied()){
+        				return true;
+        			}
+        		}
+        		return false;
+        	}
+        case 0:
+        	return true;
+        }
+    	return true;
+    }
 
     public PlayableSquare[] getGameArray() {
         return gameArray;

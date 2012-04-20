@@ -18,7 +18,7 @@ public class HardComputerPlayer extends ComputerPlayer {
 			if(!pawns.getKey().equalsIgnoreCase(getColor())){
 				for(Pawn pawn : pawns.getValue()){
 					// if a move results in a bump
-					if(true){
+					if(board.willBumpPiece(card, pawn.getLocation())){
 						if(board.validateMove(card, pawn.getID(), 0, 0, 0, 0)){
 							//make the first move that results in a bump
 							board.makeMove(card, pawn.getID(), 0, 0);
