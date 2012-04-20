@@ -11,7 +11,7 @@ abstract public class Player {
 	private String name;
 	private String color;
 
-	abstract void move(Card card);
+	abstract void move(int card);
 	
 	public Player(GameBoard board){
 		this.board = board;
