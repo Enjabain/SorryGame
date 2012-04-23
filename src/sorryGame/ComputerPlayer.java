@@ -4,9 +4,10 @@ import java.util.Random;
 
 abstract public class ComputerPlayer extends Player {
 
-	public ComputerPlayer(GameBoard board) {
+	public ComputerPlayer(GameBoard board, String color) {
 		super(board);
 		setName(getRandomName());
+        setColor(color);
 	}
 
 	private String getRandomName() {

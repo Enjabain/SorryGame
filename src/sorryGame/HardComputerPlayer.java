@@ -1,14 +1,11 @@
 package sorryGame;
 
-import java.util.ArrayList;
 import java.util.Map;
-
-import sorryGame.Deck.Card;
 
 public class HardComputerPlayer extends ComputerPlayer {
 
-	public HardComputerPlayer(GameBoard board) {
-		super(board);
+	public HardComputerPlayer(GameBoard board, String color) {
+		super(board, color);
 	}
 
 	@Override

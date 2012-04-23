@@ -1,8 +1,5 @@
 package sorryGame;
 
-import java.awt.Color;
-import sorryGame.Deck.Card;
-
 abstract public class Player {
 	
 	//reference to the board
