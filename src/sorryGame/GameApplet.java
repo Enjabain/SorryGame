@@ -10,10 +10,14 @@ import java.util.List;
 
 public class GameApplet extends Applet {
 
-    public SorryGame game = new SorryGame();
+//    public SorryGame game = new SorryGame();
+    public SorryGame game;
+    public HumanPlayer humanPlayer;
+    public ComputerPlayer computerPlayer, computerPlayer2;
     private JSObject window;
+    public boolean valid;
 
-
+//
 //    public void init() {
 //        game = new SorryGame();
 //    }
@@ -34,7 +38,7 @@ public class GameApplet extends Applet {
      *                  was an error.
      */
     @SuppressWarnings("UnusedDeclaration")
-    public boolean validateMove(String pieceID, String fromPosition, String toPosition) throws Exception {
+    public void validateMove(String pieceID, String fromPosition, String toPosition) throws Exception {
         if(fromPosition.equals("gstart") || fromPosition.equals("rstart") || fromPosition.equals("bstart") || fromPosition.equals("ystart"))
             fromPosition = "-1";
         else if (toPosition.equals("greenhome")) toPosition = "65";
@@ -43,8 +47,8 @@ public class GameApplet extends Applet {
         else if (toPosition.equals("yellowhome")) toPosition = "83";
         System.out.printf("Before Validate: pieceID: %s, fromPosition: %d, toPosition: %d%n", pieceID, Integer.parseInt(fromPosition),
                           Integer.parseInt(toPosition));
-        boolean isValid = game.validateMove(pieceID, Integer.parseInt(fromPosition), Integer.parseInt(toPosition), 0, 0);
-        if (isValid) {
+        valid = game.validateMove(pieceID, Integer.parseInt(fromPosition), Integer.parseInt(toPosition), 0, 0);
+        if (valid) {
             updatePositions(game.board.getStartArrays(), "start");
             updatePositions(game.board.getGameArray(), "game");
             updatePositions(game.board.getGreenHomeArray(), "g");
@@ -52,7 +56,23 @@ public class GameApplet extends Applet {
             updatePositions(game.board.getBlueHomeArray(), "b");
             updatePositions(game.board.getYellowHomeArray(), "y");
         }
-        return isValid;
+        computerTurn(computerPlayer);
+    }
+
+    public void computerTurn(ComputerPlayer player) throws Exception {
+        window.call("setCurrentPlayer", new Object[]{computerPlayer.getName()});
+        int card = drawCard();
+        window.call("changeCard", new Object[]{card});
+        System.out.println(card);
+        player.move(card);
+        System.out.println(card);
+        updatePositions(game.board.getStartArrays(), "start");
+        updatePositions(game.board.getGameArray(), "game");
+        updatePositions(game.board.getGreenHomeArray(), "g");
+        updatePositions(game.board.getRedHomeArray(), "r");
+        updatePositions(game.board.getBlueHomeArray(), "b");
+        updatePositions(game.board.getYellowHomeArray(), "y");
+        window.call("setCurrentPlayer", new Object[]{humanPlayer.getName()});
     }
 
     /**
@@ -85,6 +105,32 @@ public class GameApplet extends Applet {
         }
 //        Serializer.serializeArray((filingName + "array"), array);
         return updateComplete;
+    }
+//    public boolean startGame() {
+//        game = new SorryGame();
+//        computerPlayer2 = new EasyComputerPlayer(game.board, "blue");
+//        computerPlayer = new EasyComputerPlayer(game.board, "yellow");
+//        game.board.addPlayer(computerPlayer);
+//        game.board.addPlayer(computerPlayer2);
+//        return true;
+//    }
+
+    public boolean startGame(String name, String color, String difficulty) {
+        game = new SorryGame();
+        humanPlayer = new HumanPlayer(game.board);
+        humanPlayer.setName(name);
+        humanPlayer.setColor(color);
+        game.board.addPlayer(humanPlayer);
+        if (difficulty.equals("easy")) {
+            computerPlayer = new EasyComputerPlayer(game.board, "blue");
+            game.board.addPlayer(computerPlayer);
+        }
+        else {
+            computerPlayer = new HardComputerPlayer(game.board, "yellow");
+            game.board.addPlayer(computerPlayer);
+        }
+        return true;
+
     }
 
     /**
