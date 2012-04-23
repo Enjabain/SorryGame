@@ -9,7 +9,11 @@
         <webroots>
           <root url="file://$MODULE_DIR$/web" relative="/" />
         </webroots>
-        <sourceRoots />
+        <sourceRoots>
+          <root url="file://$MODULE_DIR$/src" />
+          <root url="file://$MODULE_DIR$" />
+          <root url="file://$MODULE_DIR$/web" />
+        </sourceRoots>
       </configuration>
     </facet>
   </component>

@@ -145,6 +145,7 @@ class PlayableSquare implements Serializable {
     		this.numOccupants++;
     		this.occupied = true;
             this.pawnList.add(pawn);
+            pawn.setLocation(-1);
     	}
     	else{
     		this.numOccupants = 1;
@@ -152,6 +153,7 @@ class PlayableSquare implements Serializable {
     		this.playerPieceID = pawn.getID();
             this.pawnList.clear();
             this.pawnList.add(0, pawn);
+            pawn.setLocation(Integer.parseInt(positionID));
     	}
     }
     

@@ -1,9 +1,5 @@
 package sorryGame;
 
-import java.awt.Color;
-import sorryGame.Deck.Card;
-
-@SuppressWarnings("UnusedDeclaration")
 abstract public class Player {
 	
 	//reference to the board
@@ -12,7 +8,7 @@ abstract public class Player {
 	private String name;
 	private String color;
 
-	abstract void move(Card card);
+	abstract void move(int card);
 	
 	public Player(GameBoard board){
 		this.board = board;

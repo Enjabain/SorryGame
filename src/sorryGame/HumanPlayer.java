@@ -9,7 +9,7 @@ public class HumanPlayer extends Player {
 	}
 
 	@Override
-	void move(Card card) {
+	void move(int card) {
 	}
 
 }
