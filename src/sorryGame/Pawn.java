@@ -9,6 +9,7 @@ public class Pawn {
 	private int location;
     PlayableSquare[] array;
     PlayableSquare startSquare;
+    int startIndex;
 
 	public Pawn(String color, String positionID, int number, int location, PlayableSquare startSquare, PlayableSquare[] array){
 		this.color = color;
@@ -16,8 +17,17 @@ public class Pawn {
         this.location = location;
         this.startSquare = startSquare;
         setArray(array);
+        setStartIndex();
 		this.setID(number);
 	}
+
+    private void setStartIndex() {
+        if(color.equals("green")) startIndex = 4;
+        else if(color.equals("red")) startIndex = 19;
+        else if(color.equals("blue")) startIndex = 34;
+        else if(color.equals("yellow")) startIndex = 49;
+    }
+
     public Pawn(){
 
     }
