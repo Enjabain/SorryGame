@@ -57,7 +57,6 @@ function graphIt() {
             window.index2 = -1;
 
         }
-
         if (window.n == 0) {
             window.index1 = i;
             ++window.n;
@@ -70,13 +69,10 @@ function graphIt() {
         var feedbackdisplay = document.getElementById('feedbackdebug');
         feedbackdisplay.innerHTML = index1 + ' ' + index2;
 
-
         if (document.getElementById(index1).hasChildNodes() && index2 != -1) {
 	    document.getElementById(index1).setAttribute('style','border: 1px solid transparent;');
 	    document.getElementById(index2).setAttribute('style','border: 1px solid transparent;');
             validateMove(index1, index2);
-
-
         }
 
         if (!document.getElementById(index1).hasChildNodes()) {
@@ -96,6 +92,7 @@ function graphIt() {
 function validateMove(index1, index2) {
     var pieceID = document.getElementById(index1).firstChild.getAttribute("id");
     var valid = (document.getElementById('sorryApplet')).validateMove(pieceID, index1, index2);
+    (document.getElementById('sorryApplet')).computerTurn();
 }
 
 function movePiece(index1, index2) {
@@ -104,65 +101,7 @@ function movePiece(index1, index2) {
     moveTo.insertBefore(piece, moveTo.firstChild);
 }
 
-function bumpPiece(index1, index2) {
-    var piece1 = document.getElementById(index1).firstChild;
-    bumper(index2);
-    var moveTo = document.getElementById(index2);
-    moveTo.insertBefore(piece1, moveTo.firstChild);
 }
-function swapPiece(index1, index2) {
-    var piece1 = document.getElementById(index1).firstChild;
-    var moveFrom = document.getElementById(index1);
-    var moveTo = document.getElementById(index2);
-    if (moveTo.firstChild) {
-        var piece2 = document.getElementById(index2).firstChild;
-        moveTo.insertBefore(piece1, moveTo.firstChild);
-        moveFrom.insertBefore(piece2, moveFrom.firstChild);
-    }
-}
-function slidePiece4(index1, index2) {
-    var piece1 = document.getElementById(index1).firstChild;
-    bumper(index2);
-    bumper(index2 + 1);
-    bumper(index2 + 2);
-    bumper(index2 + 3);
-    var moveTo = document.getElementById(index2 + 3);
-    moveTo.insertBefore(piece1, moveTo.firstChild);
-
-
-}
-function slidePiece5(index1, index2) {
-    var piece1 = document.getElementById(index1).firstChild;
-    bumper(index2);
-    index2++;
-    bumper(index2);
-    index2++;
-    bumper(index2);
-    index2++;
-    bumper(index2);
-    index2++;
-    bumper(index2);
-    var moveTo = document.getElementById(index2);
-    moveTo.insertBefore(piece1, moveTo.firstChild);
-}
-function bumper(bump) {
-    var bumped = document.getElementById(bump);
-    if (bumped.firstChild) {
-        var piece2 = document.getElementById(bump).firstChild;
-        var piece2ID = piece2.getAttribute("id");
-        if (piece2ID.indexOf("r") != -1) {
-            var start = document.getElementById("rstart");
-        } else if (piece2ID.indexOf("b") != -1) {
-            start = document.getElementById("bstart");
-        } else if (piece2ID.indexOf("y") != -1) {
-            start = document.getElementById("ystart");
-        } else if (piece2ID.indexOf("g") != -1) {
-            start = document.getElementById("gstart");
-        }
-        start.insertBefore(piece2, start.firstChild);
-    }
-}
-
 
 function drawCard() {
     var discardpile = document.getElementById('discard');

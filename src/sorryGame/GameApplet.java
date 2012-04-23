@@ -16,6 +16,7 @@ public class GameApplet extends Applet {
     public ComputerPlayer computerPlayer, computerPlayer2;
     private JSObject window;
     public boolean valid;
+    Player currentPlayer;
 
 //
 //    public void init() {
@@ -56,15 +57,15 @@ public class GameApplet extends Applet {
             updatePositions(game.board.getBlueHomeArray(), "b");
             updatePositions(game.board.getYellowHomeArray(), "y");
         }
-        computerTurn(computerPlayer);
+        window.call("setCurrentPlayer", new Object[]{computerPlayer.getName()});
     }
 
-    public void computerTurn(ComputerPlayer player) throws Exception {
-        window.call("setCurrentPlayer", new Object[]{computerPlayer.getName()});
+    public boolean computerTurn() throws Exception {
+//        window.call("setCurrentPlayer", new Object[]{computerPlayer.getName()});
         int card = drawCard();
         window.call("changeCard", new Object[]{card});
         System.out.println(card);
-        player.move(card);
+        computerPlayer.move(card);
         System.out.println(card);
         updatePositions(game.board.getStartArrays(), "start");
         updatePositions(game.board.getGameArray(), "game");
@@ -73,8 +74,14 @@ public class GameApplet extends Applet {
         updatePositions(game.board.getBlueHomeArray(), "b");
         updatePositions(game.board.getYellowHomeArray(), "y");
         window.call("setCurrentPlayer", new Object[]{humanPlayer.getName()});
+        return true;
     }
 
+    public void delay(int time){
+        try {
+            Thread.sleep(time);
+        }catch (InterruptedException ie){System.out.println(ie.getMessage());}
+    }
     /**
      * Updates all of the positions on the board using the state information contained in the 'gameArray'.
      * @return  updateComplete  True if update is successful; False otherwise.
