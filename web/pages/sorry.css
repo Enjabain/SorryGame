@@ -1,6 +1,7 @@
 #wrapper {margin:0 auto; width: 1000px;}
 #board {margin:0 auto; width:1000px; position:absolute;}
-
+#cover {width:100%; height:100%; position:absolute; z-index:5; background-color:#444;}
+#newGame { position:absolute; z-index:6;}
 .grid { margin:1em auto; border-collapse:collapse;  table-layout:fixed; background-image:url('resources/board.png'); height:849px; width:849px;}
 .grid td {
     width:50px; height:50px;
@@ -9,7 +10,7 @@
 }
 
 
-/*
+
 .red {
     background-color:red;
 }
@@ -22,7 +23,7 @@
 .green {
     background-color:green;
 
-} */
+} 
 
 .piece {
     width:43px;
@@ -161,17 +162,20 @@ width:400px;
 background-color:#FFF;
 border:solid 2px #000;
 }
-/*
-.greenslide {
-    background-image:url('resources/greenslide.png');
+
+.formLayout {
+        padding: 10px;
 }
-.redslide {
-    background-image:url('resources/redslide.png');
+.formLayout label, .formLayout input {
+	display: block;
+        float: left;
+        margin-bottom: 10px;
 }
-.blueslide {
-    background-image:url('resources/blueslide.jpg');
+.formLayout label {
+        text-align: right;
+        width: 120px;
+        padding-right: 20px;
 }
-.yellowslide {
-    background-image:url('resources/yellowslide.png');
+br {
+	clear: left;
 }
- */
